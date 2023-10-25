@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
-    public int vel = 5, jumpForce = 5;
-    
+     int vel = 18, jumpForce = 18;
+    bool onFloor = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Movement(vel);
+        
+        Jump();
+        //print(onFloor);
     }
 
     void Movement(int vel)
@@ -26,28 +29,54 @@ public class PlayerController : MonoBehaviour
             rb.velocity += new Vector2(vel, 0);
         if (Input.GetKey(KeyCode.LeftArrow))
             rb.velocity += new Vector2(-vel, 0);
-        if (Input.GetKeyDown(KeyCode.Space) && OnFloor())
+        
+    }
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && onFloor == true)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            print("salto");
+            //rb.AddForce(Vector2.up * jumpForce);
+            rb.velocity += new Vector2(0, jumpForce);
         }
 
     }
-    
-    private bool OnFloor()
+
+    //private bool OnFloor()
+    //{
+        
+    //    Vector3 origen = transform.position;
+    //    Vector3 direccion = Vector3.down;
+    //    float distancia = 0.2f;
+
+    //    RaycastHit2D hit = Physics2D.Raycast(origen, direccion, distancia);
+    //    Debug.DrawRay(origen, direccion * distancia, Color.red);
+
+    //    onFloor = false;
+    //    if (hit) // Asegurarme de que el rayo ha golpeado en algo.
+    //    {
+    //        //print("hit");
+    //        if (hit.collider.tag == "Floor")
+    //        {
+    //            onFloor = true;
+    //            //print("floor");
+    //        }
+                
+    //    }
+    //    else onFloor = false;
+    //    return onFloor;
+    //}
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        return Mathf.Approximately(rb.velocity.magnitude, 0);
-        //Vector3 origen = transform.position;
-        //Vector3 direccion = Vector3.down;
-        //float distancia = 0.2f;
-
-        //RaycastHit2D hit = Physics2D.Raycast(origen, direccion, distancia);
-        //Debug.DrawRay(origen, direccion * distancia, Color.red);
-
-        //onFloor = false;
-        //if (hit) // Asegurarme de que el rayo ha golpeado en algo.
-        //{
-        //    if (hit.collider.tag == "Floor")
-        //        onFloor = true;
-        //}
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            print("suelo");
+            //Digo que no está saltando (para que pueda volver a saltar)
+            onFloor = true;
+            
+            //Le quito la fuerza de salto remanente que tuviera
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
+        else onFloor = false;
     }
 }
