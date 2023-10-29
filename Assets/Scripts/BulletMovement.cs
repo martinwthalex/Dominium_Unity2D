@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    
+    int vel = 30;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +14,8 @@ public class BulletMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector2.right * 15 * Time.deltaTime);
+        if (gameObject.GetComponent<SpriteRenderer>().flipX == true) transform.Translate(Vector2.left * vel * Time.deltaTime);
+        else transform.Translate(Vector2.right * vel * Time.deltaTime);
     }
    
     private void OnCollisionEnter2D(Collision2D collision)

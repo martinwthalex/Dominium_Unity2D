@@ -8,8 +8,7 @@ public class BulletSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //rb_bullet = bullet.GetComponent<Rigidbody2D>();
-        //direction = new Vector2(rb_bullet.velocity.x, rb_bullet.velocity.y);
+        
     }
 
     // Update is called once per frame
@@ -18,6 +17,11 @@ public class BulletSpawn : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             Quaternion quaternion = new Quaternion(0,0,0,0);
+            if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
+            {
+                bullet.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else bullet.GetComponent<SpriteRenderer>().flipX = false;
             Instantiate(bullet,transform.position,quaternion);
         }
         
