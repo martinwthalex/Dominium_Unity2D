@@ -1,23 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+
 
 public class EnemyMovement : MonoBehaviour
 {
-    //public Transform player; // Referencia al jugador.
-    //private NavMeshAgent navMeshAgent;
-    //void Start()
-    //{
-    //    navMeshAgent = GetComponent<NavMeshAgent>();
-    //}
+    public Transform jugador;
+    float distancia;
+    public Vector3 puntoInicial;
+    Animator animator;
+    SpriteRenderer sr;
 
-    //void Update()
-    //{
-    //    // Asegúrate de que haya un jugador asignado.
-    //    if (player != null)
-    //    {
-    //        navMeshAgent.SetDestination(player.position);
-    //    }
-    //}
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        puntoInicial = transform.position;
+        sr = GetComponent<SpriteRenderer>();
+    }
+    private void Update()
+    {
+        distancia = Vector2.Distance(transform.position, jugador.position);
+        animator.SetFloat("Distancia", distancia);
+    }
+    public void Girar(Vector3 objetivo)
+    {
+        if(transform.position.x  < objetivo.x)
+        {
+            sr.flipX = true;
+        }
+        else
+        {
+            sr.flipX=false;
+        }
+    }
+
 }

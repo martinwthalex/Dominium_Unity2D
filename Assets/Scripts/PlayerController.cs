@@ -38,8 +38,12 @@ public class PlayerController : MonoBehaviour
             rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
         }
+
+        //if (Input.GetKey(KeyCode.UpArrow))
+        //{
             
-        
+        //    sr.flipX = true;
+        //}
     }
     void Jump()
     {
