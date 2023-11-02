@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemigo_SeguirBehaviour : StateMachineBehaviour
 {
-    float velocidadMovimiento = 8;
-    float tiempoBase = 10;
+    float velocidadMovimiento = 3;
+    float tiempoBase = 5;
     float tiempoSeguir;
     Transform jugador;
     EnemyMovement enemyMovement;
@@ -21,10 +22,11 @@ public class Enemigo_SeguirBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         animator.transform.position = Vector2.MoveTowards(animator.transform.position,jugador.position,velocidadMovimiento * Time.deltaTime);
         enemyMovement.Girar(jugador.position);
         tiempoSeguir -= Time.deltaTime;
-        if(tiempoSeguir <= 0)
+        if (tiempoSeguir <= 0)
         {
             animator.SetTrigger("Volver");
         }
