@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletSpawn : MonoBehaviour
 {
     public GameObject bullet;
+    public GameObject spawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class BulletSpawn : MonoBehaviour
                 bullet.GetComponent<SpriteRenderer>().flipX = true;
             }
             else bullet.GetComponent<SpriteRenderer>().flipX = false;
-            Instantiate(bullet,transform.position,quaternion);
+            Instantiate(bullet,spawn.transform.position,quaternion);
         }
         
     }

@@ -19,8 +19,12 @@ public class EnemyMovement : MonoBehaviour
     }
     private void Update()
     {
-        distancia = Vector2.Distance(transform.position, jugador.position);
-        animator.SetFloat("Distancia", distancia);
+        if(jugador != null)
+        {
+            distancia = Vector2.Distance(transform.position, jugador.position);
+            animator.SetFloat("Distancia", distancia);
+        }
+        
     }
     public void Girar(Vector3 objetivo)
     {

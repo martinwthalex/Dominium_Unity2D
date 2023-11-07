@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     float vel = 15;
     bool canJump = true;
     SpriteRenderer sr;
+    public static int vidas = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,10 @@ public class PlayerController : MonoBehaviour
     {
         Movement(vel);
         Jump();
-        
+        if (vidas < 0)
+        {
+            Morir();
+        }
         //print(onFloor);
     }
 
@@ -31,12 +35,14 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity += new Vector2(vel, 0);
             sr.flipX = false;
+            
         }
             
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
+            //gameObject.GetComponent<BulletSpawn>().spawn.transform.position -= new Vector3(-6f, 0, 0);
         }
 
         //if (Input.GetKey(KeyCode.UpArrow))
@@ -53,6 +59,17 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector2(0,120f));
             
         }
+
+    }
+    public static void RestarVidas()
+    {
+        vidas--;
+        
+    }
+    void Morir()
+    {
+        Destroy(this);
+        Destroy(gameObject);
 
     }
     private void OnCollisionEnter2D(Collision2D collision)

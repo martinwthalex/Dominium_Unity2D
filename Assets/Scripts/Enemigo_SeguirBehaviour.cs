@@ -1,35 +1,46 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemigo_SeguirBehaviour : StateMachineBehaviour
 {
     float velocidadMovimiento = 3;
-    float tiempoBase = 5;
+    float tiempoBase = 10;
     float tiempoSeguir;
     Transform jugador;
     EnemyMovement enemyMovement;
     
+    
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        tiempoSeguir = tiempoBase;
-        jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        enemyMovement = animator.gameObject.GetComponent<EnemyMovement>();
+        
+        if (GameObject.FindGameObjectWithTag("Player") == true)
+        {
+            tiempoSeguir = tiempoBase;
+            jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            enemyMovement = animator.gameObject.GetComponent<EnemyMovement>();
+        }
+        
+       
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-        animator.transform.position = Vector2.MoveTowards(animator.transform.position,jugador.position,velocidadMovimiento * Time.deltaTime);
-        enemyMovement.Girar(jugador.position);
-        tiempoSeguir -= Time.deltaTime;
-        if (tiempoSeguir <= 0)
+        if (GameObject.FindGameObjectWithTag("Player") == true)
         {
-            animator.SetTrigger("Volver");
+            animator.transform.position = Vector2.MoveTowards(animator.transform.position, jugador.position, velocidadMovimiento * Time.deltaTime);
+            enemyMovement.Girar(jugador.position);
+            tiempoSeguir -= Time.deltaTime;
+            if (tiempoSeguir <= 0)
+            {
+                animator.SetTrigger("Volver");
+            }
         }
+        
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
