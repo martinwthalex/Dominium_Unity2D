@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Enemigo_SeguirBehaviour : StateMachineBehaviour
 {
-    float velocidadMovimiento = 3;
+    float velocidadMovimiento = 8;
     float tiempoBase = 10;
     float tiempoSeguir;
     Transform jugador;

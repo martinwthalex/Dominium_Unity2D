@@ -15,17 +15,23 @@ public class BulletSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.X))
         {
             Quaternion quaternion = new Quaternion(0,0,0,0);
             if(gameObject.GetComponent<SpriteRenderer>().flipX == true)
             {
                 bullet.GetComponent<SpriteRenderer>().flipX = true;
+                //spawn.transform.position = new Vector3(-10, -2, 0);
             }
-            else bullet.GetComponent<SpriteRenderer>().flipX = false;
+            else
+            {
+                bullet.GetComponent<SpriteRenderer>().flipX = false;
+                //spawn.transform.position = new Vector3(10,-2,0);
+            }
             Instantiate(bullet,spawn.transform.position,quaternion);
         }
         
     }
-    
+   
 }

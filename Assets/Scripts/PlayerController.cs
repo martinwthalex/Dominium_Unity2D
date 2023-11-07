@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     float vel = 15;
+    [SerializeField] float fuerza_salto = 120;
     bool canJump = true;
     SpriteRenderer sr;
     public static int vidas = 0;
@@ -19,13 +20,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Movement(vel);
         Jump();
         if (vidas < 0)
         {
             Morir();
         }
-        //print(onFloor);
+        //Jugador_cayendo();
     }
 
     void Movement(float vel)
@@ -42,25 +44,39 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
-            //gameObject.GetComponent<BulletSpawn>().spawn.transform.position -= new Vector3(-6f, 0, 0);
+            
         }
 
-        //if (Input.GetKey(KeyCode.UpArrow))
-        //{
-            
-        //    sr.flipX = true;
-        //}
     }
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             canJump = false;
-            rb.AddForce(new Vector2(0,120f));
-            
+            rb.AddForce(new Vector2(0,fuerza_salto));
+            //rb.velocity += new Vector2(0, fuerza_salto);
+            //rb.AddForce(Vector2.up * fuerza_salto, ForceMode2D.Impulse);
+
         }
 
     }
+    //void Jugador_cayendo()
+    //{
+    //    //if (canJump == false)
+    //    //{
+    //    //    float timer = 0.05f;
+    //    //    timer -= Time.deltaTime;
+    //    //    if(timer < 0)
+    //    //    {
+    //    //        rb.gravityScale = 90f;
+    //    //        print("CAYENDO");
+    //    //    }
+    //    //}
+    //    //else
+    //    //{
+    //    //    rb.gravityScale = 8f;
+    //    //}
+    //}
     public static void RestarVidas()
     {
         vidas--;
@@ -68,8 +84,9 @@ public class PlayerController : MonoBehaviour
     }
     void Morir()
     {
-        Destroy(this);
-        Destroy(gameObject);
+        SceneManager.LoadScene("SampleScene");
+        //Destroy(this);
+        //Destroy(gameObject);
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
