@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
-    float vel = 15;
-    [SerializeField] float fuerza_salto = 120;
+    [SerializeField] float vel = 20;
+    [SerializeField] float fuerza_salto = 15;
     bool canJump = true;
     SpriteRenderer sr;
     public static int vidas = 0;
@@ -20,19 +21,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //print(canJump);
         Movement(vel);
         Jump();
-        if (vidas < 0)
-        {
-            Morir();
-        }
+        
         //Jugador_cayendo();
     }
 
     void Movement(float vel)
     {
-        rb.velocity = new Vector2(0, 0);
+        rb.velocity = new Vector2(0, rb.velocity.y);
         if (Input.GetKey(KeyCode.RightArrow))
         {
             rb.velocity += new Vector2(vel, 0);
@@ -52,9 +50,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
+
+            //rb.AddForce(new Vector2(0,fuerza_salto));
+            //print("saltando");
+            rb.velocity = new Vector2(rb.velocity.x, fuerza_salto);
             canJump = false;
-            rb.AddForce(new Vector2(0,fuerza_salto));
-            //rb.velocity += new Vector2(0, fuerza_salto);
             //rb.AddForce(Vector2.up * fuerza_salto, ForceMode2D.Impulse);
 
         }
@@ -80,20 +80,27 @@ public class PlayerController : MonoBehaviour
     public static void RestarVidas()
     {
         vidas--;
-        
+        if (vidas < 0)
+        {
+            Morir();
+        }
     }
-    void Morir()
+    static void Morir()
     {
-        SceneManager.LoadScene("SampleScene");
         //Destroy(this);
         //Destroy(gameObject);
+        Scene escenaActual = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(escenaActual.name);
+        
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.tag == "Floor")
+        if(collision.gameObject.CompareTag("Floor"))
         {
             canJump = true;
+            //print("suelo");
         }
+        
     }
 }
