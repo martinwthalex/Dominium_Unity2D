@@ -11,11 +11,14 @@ public class PlayerController : MonoBehaviour
     bool canJump = true;
     SpriteRenderer sr;
     public static int vidas = 0;
+    public GameObject brazo;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+
+
     }
 
     // Update is called once per frame
@@ -35,13 +38,18 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity += new Vector2(vel, 0);
             sr.flipX = false;
-            
+            brazo.GetComponent<SpriteRenderer>().flipX = false;
+            // NO TOCAR ESTOS VALORES
+            brazo.transform.position = gameObject.transform.position + new Vector3(1.3f,-0.2f,0);
         }
             
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
+            brazo.GetComponent<SpriteRenderer>().flipX = true;
+            // NO TOCAR ESTOS VALORES
+            brazo.transform.position = gameObject.transform.position + new Vector3(-1.3f, -0.2f, 0);
             
         }
 
@@ -60,23 +68,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    //void Jugador_cayendo()
-    //{
-    //    //if (canJump == false)
-    //    //{
-    //    //    float timer = 0.05f;
-    //    //    timer -= Time.deltaTime;
-    //    //    if(timer < 0)
-    //    //    {
-    //    //        rb.gravityScale = 90f;
-    //    //        print("CAYENDO");
-    //    //    }
-    //    //}
-    //    //else
-    //    //{
-    //    //    rb.gravityScale = 8f;
-    //    //}
-    //}
+    
     public static void RestarVidas()
     {
         vidas--;
