@@ -8,11 +8,16 @@ public class MenuInicial2 : MonoBehaviour
     public void Jugar()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene("MenuInicial");
     }
-    
+    public void Opciones()
+    {
+        SceneManager.LoadScene("MenuOpciones");
+    }
+
     public void Salir()
     {
-        
+        Debug.Log("Exit....");
         Application.Quit();
     }
 }

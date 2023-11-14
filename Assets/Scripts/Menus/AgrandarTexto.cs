@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+using UnityEngine.UI; 
 using UnityEngine;
+using TMPro;
 
 public class AgrandarTexto : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class AgrandarTexto : MonoBehaviour
 
     void Start()
     {
-        textMeshPro = GetComponent<TextMeshProUGUI>();
+        textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
         originalSize = textMeshPro.fontSize;//Coje el tamaño de letra original del texto dnd haya sido colocado
     }
 
