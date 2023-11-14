@@ -11,6 +11,7 @@ public class BulletSpawn : MonoBehaviour
     void Start()
     {
         original_bullet_rotation = new Quaternion();
+        bullet.transform.rotation = original_bullet_rotation;
     }
     // Update is called once per frame
     void Update()
@@ -22,30 +23,31 @@ public class BulletSpawn : MonoBehaviour
             if (jugador.GetComponent<PlayerController>().GetFlipX() && !gameObject.GetComponent<Brazo_controller>().Get_Brazo_Arriba() && !gameObject.GetComponent<Brazo_controller>().Get_Brazo_Abajo())
             {
                 bullet.GetComponent<SpriteRenderer>().flipX = true;
-                print("IZQUIERDA");
-            }
-            else if(gameObject.GetComponent<Brazo_controller>().Get_Brazo_Arriba())
-            {
-                bullet.GetComponent<SpriteRenderer>().flipX = false;
-                if(bullet.transform.rotation.z == 0)
-                {
-                    bullet.transform.Rotate(Vector3.forward * 90f);
-                }
+                bullet.transform.rotation = original_bullet_rotation;
                 
-                print("ARRIBA");
             }
-            else if (gameObject.GetComponent<Brazo_controller>().Get_Brazo_Abajo())
+            if(gameObject.GetComponent<Brazo_controller>().Get_Brazo_Arriba())
             {
                 bullet.GetComponent<SpriteRenderer>().flipX = false;
-                if (bullet.transform.rotation.z == 0)
-                    bullet.transform.Rotate(Vector3.forward * 90f);
-                print("ABAJO");
+                
+                bullet.transform.rotation = original_bullet_rotation;
+                bullet.transform.Rotate(Vector3.forward * 90f);
+                
             }
-            else
+            if (gameObject.GetComponent<Brazo_controller>().Get_Brazo_Abajo())
             {
                 bullet.GetComponent<SpriteRenderer>().flipX = false;
-                transform.rotation = original_bullet_rotation;
-                print("DERECHA");
+
+                bullet.transform.rotation = original_bullet_rotation;
+                bullet.transform.Rotate(Vector3.forward * 270f);
+
+            }
+            if(!jugador.GetComponent<PlayerController>().GetFlipX() && !gameObject.GetComponent<Brazo_controller>().Get_Brazo_Arriba() && !gameObject.GetComponent<Brazo_controller>().Get_Brazo_Abajo())
+            {
+                bullet.GetComponent<SpriteRenderer>().flipX = false;
+                bullet.transform.rotation = original_bullet_rotation;
+                //transform.rotation = original_bullet_rotation;
+                
             }
             Instantiate(bullet, gameObject.transform.position, bullet.transform.rotation);
         }

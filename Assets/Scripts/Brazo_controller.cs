@@ -18,8 +18,14 @@ public class Brazo_controller : MonoBehaviour
 
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)/* || (Input.GetKeyDown(KeyCode.RightArrow) && Input.GetKeyDown(KeyCode.UpArrow)) || (Input.GetKeyDown(KeyCode.LeftArrow) && Input.GetKeyDown(KeyCode.UpArrow))*/)
+        if (Input.GetKeyDown(KeyCode.W)){
+            print("Brazo_abajo = " + brazo_abajo);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            print("Brazo_arriba = " + brazo_arriba);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             // Restablece la rotación del brazo a su posición original
             gameObject.transform.rotation = originalArmRotation;
@@ -27,16 +33,25 @@ public class Brazo_controller : MonoBehaviour
             brazo_arriba = false;
             brazo_abajo = false;
         }
-        if(brazo_abajo && Input.GetKeyDown(KeyCode.UpArrow)) gameObject.transform.rotation = originalArmRotation;
-        else if(brazo_arriba && Input.GetKeyDown(KeyCode.DownArrow)) gameObject.transform.rotation = originalArmRotation;
-        if (Input.GetKeyDown(KeyCode.UpArrow)&&gameObject.transform.rotation.z == 0)
+        if(brazo_abajo && Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            gameObject.transform.rotation = originalArmRotation;
+            
+        }
+        else if(brazo_arriba && Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            gameObject.transform.rotation = originalArmRotation;
+            
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow)&&!Get_Brazo_Arriba())
         {
             brazo_arriba = true;
+            brazo_abajo=false;
             // Rota el brazo -90 grados alrededor del eje Z
             if (jugador.GetComponent<PlayerController>().GetFlipX())
             {
                 gameObject.transform.Rotate(Vector3.forward * -90f);
-                gameObject.transform.position = jugador.transform.position + new Vector3(0.1f, 0.7f, 0);
+                gameObject.transform.position = jugador.transform.position + new Vector3(0.1f, 0.5f, 0);
             }
             else
             {
@@ -44,9 +59,10 @@ public class Brazo_controller : MonoBehaviour
                 gameObject.transform.position = jugador.transform.position + new Vector3(-0.1f, 0.8f, 0);
             }
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && gameObject.transform.rotation.z == 0)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && !Get_Brazo_Abajo())
         {
             brazo_abajo = true;
+            brazo_arriba = false;
             // Rota el brazo -90 grados alrededor del eje Z
             if (jugador.GetComponent<PlayerController>().GetFlipX())
             {
@@ -58,6 +74,7 @@ public class Brazo_controller : MonoBehaviour
                 gameObject.transform.Rotate(Vector3.forward * -90f);
                 gameObject.transform.position = jugador.transform.position + new Vector3(0.2f, -1.4f, 0);
             }
+            
         }
     }
     

@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
             brazo.GetComponent<SpriteRenderer>().flipX = true;
-            brazo.transform.Rotate(Vector3.forward * 0f);
+            
             // NO TOCAR ESTOS VALORES
             brazo.transform.position = gameObject.transform.position + new Vector3(-1.3f, -0.2f, 0);
             
