@@ -8,11 +8,15 @@ public class JugadorPrueba : MonoBehaviour
     [SerializeField] bool suelo = false;
     [SerializeField] LayerMask mascara;
     Rigidbody2D rb;
-
+    SpriteRenderer sr;
+    float vel = 8;
+    bool canJump = false;
+    float fuerza_salto;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
 
@@ -32,21 +36,14 @@ public class JugadorPrueba : MonoBehaviour
         {
             rb.velocity += new Vector2(vel, 0);
             sr.flipX = false;
-            brazo.GetComponent<SpriteRenderer>().flipX = false;
-
-            // NO TOCAR ESTOS VALORES
-            brazo.transform.position = gameObject.transform.position + new Vector3(1.3f, -0.2f, 0);
+            
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
-            brazo.GetComponent<SpriteRenderer>().flipX = true;
-
-            // NO TOCAR ESTOS VALORES
-            brazo.transform.position = gameObject.transform.position + new Vector3(-1.3f, -0.2f, 0);
-
+            
         }
 
     }
