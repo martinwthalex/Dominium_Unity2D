@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     [SerializeField] float vel = 20;
-    [SerializeField] float fuerza_salto = 15;
+    [SerializeField] float fuerza_salto = 25;
     bool canJump = true;
     SpriteRenderer sr;
     public static int vidas = 0;
@@ -38,20 +38,20 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity += new Vector2(vel, 0);
             sr.flipX = false;
-            brazo.GetComponent<SpriteRenderer>().flipX = false;
+            //brazo.GetComponent<SpriteRenderer>().flipX = false;
             
             // NO TOCAR ESTOS VALORES
-            brazo.transform.position = gameObject.transform.position + new Vector3(1.3f,-0.2f,0);
+            //brazo.transform.position = gameObject.transform.position + new Vector3(1.3f,-0.2f,0);
         }
             
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
-            brazo.GetComponent<SpriteRenderer>().flipX = true;
+            //brazo.GetComponent<SpriteRenderer>().flipX = true;
             
             // NO TOCAR ESTOS VALORES
-            brazo.transform.position = gameObject.transform.position + new Vector3(-1.3f, -0.2f, 0);
+            //brazo.transform.position = gameObject.transform.position + new Vector3(-1.3f, -0.2f, 0);
             
         }
 
