@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             rb.velocity += new Vector2(vel, 0);
-            sr.flipX = false;
+            //sr.flipX = false;
             //brazo.GetComponent<SpriteRenderer>().flipX = false;
             
             // NO TOCAR ESTOS VALORES
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity += new Vector2(-vel, 0);
-            sr.flipX = true;
+            //sr.flipX = true;
             //brazo.GetComponent<SpriteRenderer>().flipX = true;
             
             // NO TOCAR ESTOS VALORES
