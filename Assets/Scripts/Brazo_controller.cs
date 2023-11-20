@@ -14,6 +14,8 @@ public class Brazo_controller : MonoBehaviour
     public float escalaInicialX = 1f;
     public GameObject balaPrefab;
     public float velocidadBala = 30f;
+    float angulo;
+    GameObject bala;
 
     void Start()
     {
@@ -142,9 +144,7 @@ public class Brazo_controller : MonoBehaviour
             }
             else
             {
-                float angulo = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
-                //print(angulo);
-
+                angulo = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0f, 0f, angulo);
             }
             
@@ -187,7 +187,7 @@ public class Brazo_controller : MonoBehaviour
         Vector3 direccionDisparo = ObtenerDireccionDisparo();
         Quaternion rotacionDisparo = ObtenerRotacionDisparo();
 
-        GameObject bala = Instantiate(balaPrefab, cañon.position, rotacionDisparo);
+        bala = Instantiate(balaPrefab, cañon.position, rotacionDisparo);
         BulletMovement scriptBala = bala.GetComponent<BulletMovement>();
         scriptBala.InicializarBala(direccionDisparo, velocidadBala);
     }
@@ -197,17 +197,17 @@ public class Brazo_controller : MonoBehaviour
         // Obtener la dirección en el espacio mundial a lo largo del eje derecho local del brazo
         Vector3 direccionLocal = Vector3.right;
         Vector3 direccionMundial = transform.TransformDirection(direccionLocal).normalized;
-        print(direccionMundial.x);
+        //print("X = " + direccionMundial.x + "Y = "+direccionMundial.y);
         // Ajustar la escala de la bala según la dirección local del brazo
         if (direccionMundial.x < 0)
         {
             print("flipeando bala");
-            balaPrefab.transform.localScale = new Vector3(-Mathf.Abs(balaPrefab.transform.localScale.x), balaPrefab.transform.localScale.y, balaPrefab.transform.localScale.z);
+            bala.transform.localScale = new Vector3(-Mathf.Abs(balaPrefab.transform.localScale.x), balaPrefab.transform.localScale.y, balaPrefab.transform.localScale.z);
         }
         else
         {
             //print("NO");
-            balaPrefab.transform.localScale = new Vector3(Mathf.Abs(balaPrefab.transform.localScale.x), balaPrefab.transform.localScale.y, balaPrefab.transform.localScale.z);
+            bala.transform.localScale = new Vector3(Mathf.Abs(balaPrefab.transform.localScale.x), balaPrefab.transform.localScale.y, balaPrefab.transform.localScale.z);
         }
 
         return direccionMundial;
@@ -216,10 +216,10 @@ public class Brazo_controller : MonoBehaviour
     Quaternion ObtenerRotacionDisparo()
     {
         // Obtener el ángulo de rotación en grados
-        float anguloRotacion = Mathf.Atan2(transform.right.y, transform.right.x) * Mathf.Rad2Deg;
-
+        //float anguloRotacion = Mathf.Atan2(transform.right.y, transform.right.x) * Mathf.Rad2Deg;
+        float anguloRotacion = angulo;
         // Ajustar la rotación de la bala según el ángulo de rotación del brazo
-        Quaternion rotacionDisparo = Quaternion.Euler(0f, 0f, anguloRotacion);
+        Quaternion rotacionDisparo = Quaternion.Euler(0f, 0f, angulo/*anguloRotacion*/);
 
         return rotacionDisparo;
     }
