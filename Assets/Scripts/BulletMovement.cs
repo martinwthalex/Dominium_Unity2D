@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    int vel = 30;
+    
     public GameObject brazo;
     private Vector3 direccion;
     private float velocidad;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +19,7 @@ public class BulletMovement : MonoBehaviour
     void Update()
     {
         MoverBala();
-        //if (gameObject.GetComponent<SpriteRenderer>().flipX == true && !brazo.GetComponent<Brazo_controller>().Get_Brazo_Arriba() && !brazo.GetComponent<Brazo_controller>().Get_Brazo_Abajo()) transform.Translate(Vector2.left * vel * Time.deltaTime);
-        //else if (gameObject.GetComponent<SpriteRenderer>().flipX == false && !brazo.GetComponent<Brazo_controller>().Get_Brazo_Arriba() && !brazo.GetComponent<Brazo_controller>().Get_Brazo_Abajo()) transform.Translate(Vector2.right * vel * Time.deltaTime);
-        //else if (brazo.GetComponent<Brazo_controller>().Get_Brazo_Arriba()) transform.Translate(Vector2.down * vel * Time.deltaTime);
-        //else if (brazo.GetComponent<Brazo_controller>().Get_Brazo_Abajo()) transform.Translate(Vector2.up * vel * Time.deltaTime);
+        
     }
    
     private void OnCollisionEnter2D(Collision2D collision)
@@ -32,14 +30,33 @@ public class BulletMovement : MonoBehaviour
     }
     public void InicializarBala(Vector3 direccion, float velocidad)
     {
-        this.direccion = direccion;
+        
+        if(direccion == Vector3.left)
+        {
+            Flip_bala();
+        }
+        else
+        {
+            Reiniciar_flip();
+        }
         this.velocidad = velocidad;
+        this.direccion = direccion;
+        
     }
 
     void MoverBala()
     {
-        transform.Translate(direccion * velocidad * Time.deltaTime);
-
+        
+        //transform.Translate(new Vector3(direccion.x,direccion.y,0f) * velocidad * Time.deltaTime);
+        transform.position += direccion * velocidad * Time.deltaTime;
         // Puedes agregar lógica para destruir la bala cuando está fuera de la pantalla u otras condiciones.
+    }
+    void Flip_bala()
+    {
+        this.transform.localScale = new Vector3(-0.2f, transform.localScale.y, transform.localScale.z);
+    }
+    void Reiniciar_flip()
+    {
+        this.transform.localScale = new Vector3(0.2f, transform.localScale.y, transform.localScale.z);
     }
 }
