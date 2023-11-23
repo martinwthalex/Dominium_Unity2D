@@ -37,36 +37,28 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             rb.velocity += new Vector2(vel, 0);
-            //sr.flipX = false;
-            //brazo.GetComponent<SpriteRenderer>().flipX = false;
-            
-            // NO TOCAR ESTOS VALORES
-            //brazo.transform.position = gameObject.transform.position + new Vector3(1.3f,-0.2f,0);
+            sr.flipX = false;
         }
             
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.velocity += new Vector2(-vel, 0);
-            //sr.flipX = true;
-            //brazo.GetComponent<SpriteRenderer>().flipX = true;
-            
-            // NO TOCAR ESTOS VALORES
-            //brazo.transform.position = gameObject.transform.position + new Vector3(-1.3f, -0.2f, 0);
-            
+            sr.flipX = true;
         }
-
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+        {
+            sr.flipX = false;
+        }
     }
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
-
-            //rb.AddForce(new Vector2(0,fuerza_salto));
-            //print("saltando");
+            sr.flipX = false;
+            
             rb.velocity = new Vector2(rb.velocity.x, fuerza_salto);
             canJump = false;
-            //rb.AddForce(Vector2.up * fuerza_salto, ForceMode2D.Impulse);
-
+            
         }
 
     }
