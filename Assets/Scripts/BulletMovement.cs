@@ -24,7 +24,7 @@ public class BulletMovement : MonoBehaviour
    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("wall"))
+        if(collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Floor"))
             Destroy(gameObject);
 
     }

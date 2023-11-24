@@ -58,11 +58,12 @@ public class Brazo_controller : MonoBehaviour
         SeguirProtagonista();
         if (Input.GetKeyDown(KeyCode.X))
         {
-            
             Disparar();
-            
         }
-        
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Disparar();
+        }
     }
     
     
@@ -182,5 +183,8 @@ public class Brazo_controller : MonoBehaviour
         BulletMovement scriptBala = bala.GetComponent<BulletMovement>();
         scriptBala.InicializarBala(direccionDisparo, velocidadBala);
     }
+    void Disparo_plataformas()
+    {
 
+    }
 }
