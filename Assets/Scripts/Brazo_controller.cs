@@ -12,17 +12,21 @@ public class Brazo_controller : MonoBehaviour
     public float velocidadRotacion = 100f;
     public float escalaInicialX;
     public GameObject balaPrefab;
-    public float velocidadBala = 30f;
+    public GameObject hieloPrefab;
+    public float velocidadBala = 30f, velocidadHielo = 30f;
     float angulo;
-    GameObject bala;
+    GameObject bala, hielo;
+    private GameObject[] hielos_creados;
+    private int MAX_hielos = 2;
+    private int contador = -1;
     Vector3 direccion;
     bool izquierda, derecha, arriba, abajo;
 
     void Start()
     {
-        
+        hielos_creados = new GameObject[MAX_hielos];
         escalaInicialX = Mathf.Abs(transform.localScale.x);
-        
+        derecha = true;
     }
 
     void Update()
@@ -60,9 +64,10 @@ public class Brazo_controller : MonoBehaviour
         {
             Disparar();
         }
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && derecha || Input.GetKeyDown(KeyCode.Z) && izquierda)
         {
-            Disparar();
+            Disparo_plataformas();
+            
         }
     }
     
@@ -185,6 +190,32 @@ public class Brazo_controller : MonoBehaviour
     }
     void Disparo_plataformas()
     {
-
+        Vector3 direccionDisparo = Vector3.right;
+        if (derecha)
+        {
+            direccionDisparo = Vector3.right;
+        }
+        else if (izquierda)
+        {
+            direccionDisparo = Vector3.left;
+        }
+        Quaternion rot = Quaternion.Euler(0f, 0f, 0);
+        hielo = Instantiate(hieloPrefab, cañon.position, rot);
+        contador++;
+        if(contador >= MAX_hielos)
+        {
+            Destroy(hielos_creados[0]);
+            hielos_creados[0] = null;
+            hielos_creados[0] = hielos_creados[1];
+            hielos_creados[1] = hielo;
+            contador = 1;
+        }
+        else
+        {
+            hielos_creados[contador] = hielo;
+        }
+        
+        Hielo scriptHielo = hielo.GetComponent<Hielo>();
+        scriptHielo.InicializarHielo(direccionDisparo, velocidadHielo);
     }
 }
