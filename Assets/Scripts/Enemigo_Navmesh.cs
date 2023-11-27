@@ -11,22 +11,28 @@ public class Enemigo_Navmesh : MonoBehaviour
     private int indiceRuta = 0;
     private bool objetivo_detectado = false;
     private Transform objetivo;
-    private SpriteRenderer sprite;
+    private SpriteRenderer sr;
     float distancia;
     int stopping_distance = 0;
+    float velocidad_inicial;
+    float aceleracion_inicial;
+    private Animator animator;
+    
     // Start is called before the first frame update
     void Start()
     {
+        agente = GetComponent<NavMeshAgent>();
         agente.updateRotation = false;
         agente.updateUpAxis = false;
         //print(puntosRuta[indiceRuta].position.x + "  " + puntosRuta[indiceRuta].position.y);
-        sprite = this.GetComponent<SpriteRenderer>();
+        sr = this.GetComponent<SpriteRenderer>();
         agente.stoppingDistance = stopping_distance;
+        velocidad_inicial = agente.speed;
+        aceleracion_inicial = agente.acceleration;
+        animator = this.GetComponent<Animator>();
+        
     }
-    private void Awake()
-    {
-        agente = GetComponent<NavMeshAgent>();
-    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -57,18 +63,24 @@ public class Enemigo_Navmesh : MonoBehaviour
         //poner un else para que vuelva a su posicion original si escapamos del enemigo
         Movimiento_enemigo(objetivo_detectado);
         Rotar_enemigo();
+        
     }
 
     void Movimiento_enemigo(bool esDetectado)
     {
         if (esDetectado)
         {
+            agente.speed = velocidad_inicial * 2;
+            agente.acceleration = aceleracion_inicial * 2;
             agente.SetDestination(personaje.position);
             objetivo = personaje;
             Mantener_distancia();
         }
         else
         {
+            agente.speed = velocidad_inicial;
+            agente.acceleration = aceleracion_inicial;
+           
             agente.SetDestination(puntosRuta[indiceRuta].position);
             objetivo = puntosRuta[indiceRuta];
         }
@@ -77,15 +89,29 @@ public class Enemigo_Navmesh : MonoBehaviour
     {
         if(this.transform.position.x > objetivo.position.x)
         {
-            sprite.flipX = true;
+            sr.flipX = true;
         }
         else
         {
-            sprite.flipX = false;   
+            sr.flipX = false;   
         }
     }
     void Mantener_distancia()
     {
         agente.stoppingDistance = 6;
+        if(agente.remainingDistance < 6)
+        {
+            Atacar(true);
+            
+        }
+        else
+        {
+            Atacar(false);
+        }
     }
+    void Atacar(bool ataque)
+    {
+        animator.SetBool("Ataque", ataque);
+    }
+    
 }
