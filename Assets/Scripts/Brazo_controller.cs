@@ -21,12 +21,14 @@ public class Brazo_controller : MonoBehaviour
     private int contador = -1;
     Vector3 direccion;
     bool izquierda, derecha, arriba, abajo;
+    public static bool disparo_plataformas;
 
     void Start()
     {
         hielos_creados = new GameObject[MAX_hielos];
         escalaInicialX = Mathf.Abs(transform.localScale.x);
         derecha = true;
+        Set_Can_Disparo_Plataformas(false);
     }
 
     void Update()
@@ -64,7 +66,7 @@ public class Brazo_controller : MonoBehaviour
         {
             Disparar();
         }
-        if (Input.GetKeyDown(KeyCode.Z) && derecha || Input.GetKeyDown(KeyCode.Z) && izquierda)
+        if (Input.GetKeyDown(KeyCode.Z) && derecha && disparo_plataformas || Input.GetKeyDown(KeyCode.Z) && izquierda && disparo_plataformas)
         {
             Disparo_plataformas();
             
@@ -217,5 +219,13 @@ public class Brazo_controller : MonoBehaviour
         
         Hielo scriptHielo = hielo.GetComponent<Hielo>();
         scriptHielo.InicializarHielo(direccionDisparo, velocidadHielo);
+    }
+    public static void Set_Can_Disparo_Plataformas(bool can)
+    {
+        disparo_plataformas = can;
+    }
+    public static bool Get_Can_Disparo_Plataformas()
+    {
+        return disparo_plataformas;
     }
 }

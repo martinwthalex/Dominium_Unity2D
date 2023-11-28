@@ -10,14 +10,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float fuerza_salto = 25;
     bool canJump = true;
     SpriteRenderer sr;
-    public static int vidas = 3;
+    public static int vidas;
     public GameObject brazo;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-
+        vidas = 3;
 
     }
 
@@ -66,6 +67,8 @@ public class PlayerController : MonoBehaviour
     public static void RestarVidas()
     {
         vidas--;
+       
+        
         if (vidas <= 0)
         {
             Morir();

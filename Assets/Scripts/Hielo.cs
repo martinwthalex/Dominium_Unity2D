@@ -19,29 +19,33 @@ public class Hielo : MonoBehaviour
         if (!rb_static)
         {
             MoverHielo();
+            gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
         }
-        
+        else
+        {
+            gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
+        }
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("hielo"))
         {
             rb_static = true;
             rb.bodyType = RigidbodyType2D.Static;
         }
-           
+
         if (collision.gameObject.CompareTag("Floor"))
         {
             Destroy(this.gameObject);
         }
-
     }
     public void InicializarHielo(Vector3 direccion, float velocidad)
     {
         this.velocidad = velocidad;
         this.direccion = direccion;
+        
     }
 
     void MoverHielo()

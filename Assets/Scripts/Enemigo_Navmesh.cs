@@ -17,7 +17,8 @@ public class Enemigo_Navmesh : MonoBehaviour
     float velocidad_inicial;
     float aceleracion_inicial;
     private Animator animator;
-    
+    float timer = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -103,6 +104,12 @@ public class Enemigo_Navmesh : MonoBehaviour
         {
             Atacar(true);
             
+            timer -= Time.deltaTime;
+            if(timer <= 0)
+            {
+                PlayerController.RestarVidas();
+                timer = 1f;
+            }
         }
         else
         {
