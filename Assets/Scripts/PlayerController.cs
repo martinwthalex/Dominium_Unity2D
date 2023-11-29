@@ -87,10 +87,19 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("hielo"))
         {
-            canJump = true;
-            //print("suelo");
+            if(collision.gameObject.transform.localPosition.y > this.transform.localPosition.y)
+            {
+                canJump = false;
+                print("Pos_Plataforma: "+collision.gameObject.transform.localPosition.y);
+                print("Pos_Jugador: " + this.transform.localPosition.y);
+            }
+            else
+            {
+                canJump = true;
+                
+            }
+
         }
-        
     }
     public bool GetFlipX()
     {
