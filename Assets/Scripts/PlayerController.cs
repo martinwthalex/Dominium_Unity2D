@@ -34,18 +34,22 @@ public class PlayerController : MonoBehaviour
 
     void Movement(float vel)
     {
-        rb.velocity = new Vector2(0, rb.velocity.y);
-        if (Input.GetKey(KeyCode.RightArrow))
+        float x = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(x * vel, rb.velocity.y);
+        if (x > 0)
         {
-            rb.velocity += new Vector2(vel, 0);
+            //rb.velocity += new Vector2(vel, 0);
             sr.flipX = false;
         }
             
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (x < 0)
         {
-            rb.velocity += new Vector2(-vel, 0);
+           // rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
         }
+
+        
+
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
         {
             sr.flipX = false;
@@ -87,17 +91,13 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("hielo"))
         {
-            if(collision.gameObject.transform.localPosition.y > this.transform.localPosition.y)
-            {
-                canJump = false;
-                print("Pos_Plataforma: "+collision.gameObject.transform.localPosition.y);
-                print("Pos_Jugador: " + this.transform.localPosition.y);
-            }
-            else
+            
+            if(collision.GetContact(0).point.y < this.transform.position.y - 0.9f)
             {
                 canJump = true;
-                
+
             }
+
 
         }
     }
