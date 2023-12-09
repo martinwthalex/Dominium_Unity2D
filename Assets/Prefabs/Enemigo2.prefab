@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 3625043607559282579, guid: 9edae459dbf947f44ae97a59820f8e79, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7176471, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6514d3ae80ebf544c8903c4c44b718e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitmarker_prefab: {fileID: 2336482916309046106, guid: 259e192b9ec286743926a9ffc760d2f3, type: 3}
 --- !u!95 &3350011122702163105
 Animator:
   serializedVersion: 5

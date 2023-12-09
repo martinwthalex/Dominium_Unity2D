@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4720182644433854829}
   - component: {fileID: 4720182644433854828}
-  - component: {fileID: 4720182644433854830}
   - component: {fileID: 4720182644433854831}
   m_Layer: 0
   m_Name: Protagonista_brazo
@@ -171,21 +170,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4720182644433854830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720182644433854827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9962c5836712d49a4217f9262c986d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1361781072532763138, guid: 5ef17d6d9ac72e84e8cd753e3df4e327, type: 3}
-  jugador: {fileID: 0}
-  "ca\xF1on": {fileID: 2044295744}
 --- !u!114 &4720182644433854831
 MonoBehaviour:
   m_ObjectHideFlags: 0
