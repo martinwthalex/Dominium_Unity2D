@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
-    [SerializeField] float vel = 20;
-    [SerializeField] float fuerza_salto = 25;
+    static float vel = 20;
+    static float fuerza_salto = 20;
     bool canJump = true;
     SpriteRenderer sr;
     public static int vidas;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         vidas = 3;
-
+        Set_player_atributes(20, 20);
     }
 
     // Update is called once per frame
@@ -101,8 +101,9 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    public bool GetFlipX()
+    public static void Set_player_atributes(float vel_, float fuerza_salto_)
     {
-        return sr.flipX;
+        vel = vel_;
+        fuerza_salto = fuerza_salto_;
     }
 }

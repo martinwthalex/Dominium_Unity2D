@@ -18,6 +18,10 @@ public class Enemigo_Navmesh : MonoBehaviour
     float aceleracion_inicial;
     private Animator animator;
     float timer = 1f;
+    public GameObject bubble;
+    [SerializeField] GameObject bubble_prefab;
+    bool bubble_creada = false;
+    public bubble_enem_pulmon bubble_Enem_Pulmon_ = null;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +63,7 @@ public class Enemigo_Navmesh : MonoBehaviour
         else
         {
             agente.stoppingDistance = stopping_distance;
+            objetivo_detectado = false;
         }
         //else objetivo_detectado = false;
         //poner un else para que vuelva a su posicion original si escapamos del enemigo
@@ -71,6 +76,11 @@ public class Enemigo_Navmesh : MonoBehaviour
     {
         if (esDetectado)
         {
+            if (!bubble_creada)
+            {
+                Crear_bubble();
+            }
+            
             agente.speed = velocidad_inicial * 2;
             agente.acceleration = aceleracion_inicial * 2;
             agente.SetDestination(personaje.position);
@@ -79,6 +89,7 @@ public class Enemigo_Navmesh : MonoBehaviour
         }
         else
         {
+            Delete_bubble();
             agente.speed = velocidad_inicial;
             agente.acceleration = aceleracion_inicial;
            
@@ -119,6 +130,18 @@ public class Enemigo_Navmesh : MonoBehaviour
     void Atacar(bool ataque)
     {
         animator.SetBool("Ataque", ataque);
+    }
+    void Crear_bubble()
+    {
+        bubble = Instantiate(bubble_prefab, this.transform.position, Quaternion.identity);
+        bubble_Enem_Pulmon_ = bubble.GetComponent<bubble_enem_pulmon>();
+        bubble_Enem_Pulmon_.Inicializar_bubble_pos(this.transform);
+        bubble_creada = true;
+    }
+    public void Delete_bubble()
+    {
+        Destroy(bubble);
+        bubble_creada = false;
     }
     
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class Brazo_controller : MonoBehaviour
 {
     public Transform jugador, cañon;
-    
+    public float timer = 2;
     
     public float velocidadRotacion = 100f;
     public float escalaInicialX;
@@ -22,6 +22,11 @@ public class Brazo_controller : MonoBehaviour
     Vector3 direccion;
     bool izquierda, derecha, arriba, abajo;
     public static bool disparo_plataformas;
+    const int sobrecalentamiento = 10;
+    
+    int balas_disparadas = 0;
+    bool can_disparar = true;
+    Animator anim;
 
     void Start()
     {
@@ -29,6 +34,7 @@ public class Brazo_controller : MonoBehaviour
         escalaInicialX = Mathf.Abs(transform.localScale.x);
         derecha = true;
         Set_Can_Disparo_Plataformas(false);
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -64,12 +70,28 @@ public class Brazo_controller : MonoBehaviour
         SeguirProtagonista();
         if (Input.GetKeyDown(KeyCode.X))
         {
-            Disparar();
+            balas_disparadas++;
+            if(balas_disparadas < sobrecalentamiento)
+            {
+                anim.SetBool("Sobrecalentamiento", false);
+                Disparar();
+            }
+            else
+            {
+                if (can_disparar)
+                {
+                    Sobrecalentamiento_arma();
+                }
+            }
         }
         if (Input.GetKeyDown(KeyCode.Z) && derecha && disparo_plataformas || Input.GetKeyDown(KeyCode.Z) && izquierda && disparo_plataformas)
         {
             Disparo_plataformas();
             
+        }
+        if (!can_disparar)
+        {
+            Sobrecalentamiento_arma();
         }
     }
     
@@ -227,5 +249,17 @@ public class Brazo_controller : MonoBehaviour
     public static bool Get_Can_Disparo_Plataformas()
     {
         return disparo_plataformas;
+    }
+    void Sobrecalentamiento_arma()
+    {
+        anim.SetBool("Sobrecalentamiento", true);
+        can_disparar = false;
+        timer -= Time.deltaTime;
+        if(timer <= 0)
+        {
+            balas_disparadas = 0;
+            can_disparar = true;
+            timer = 2;
+        }
     }
 }

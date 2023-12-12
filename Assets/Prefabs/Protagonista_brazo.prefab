@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4720182644433854829}
   - component: {fileID: 4720182644433854828}
   - component: {fileID: 4720182644433854831}
+  - component: {fileID: 2354602430149703283}
   m_Layer: 0
   m_Name: Protagonista_brazo
   m_TagString: Untagged
@@ -184,9 +185,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jugador: {fileID: 0}
   "ca\xF1on": {fileID: 2044295744}
+  timer: 2
   velocidadRotacion: 100
   escalaInicialX: 0
   balaPrefab: {fileID: 1361781072532763138, guid: 5ef17d6d9ac72e84e8cd753e3df4e327, type: 3}
   hieloPrefab: {fileID: 7022804983777502890, guid: bf917913063c94d4e9fc4c525001ca7c, type: 3}
   velocidadBala: 30
   velocidadHielo: 30
+--- !u!95 &2354602430149703283
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720182644433854827}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f5ea8020b1f2a254a951824e86676987, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

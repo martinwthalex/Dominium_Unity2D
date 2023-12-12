@@ -7,6 +7,7 @@ public class Enemigo_atrbutos : MonoBehaviour
    
     int vidas;
     GameObject hitmarker;
+    public static bool hitmarker_destruido = true;
     [SerializeField] GameObject hitmarker_prefab;
     private void Start()
     {
@@ -20,15 +21,20 @@ public class Enemigo_atrbutos : MonoBehaviour
             
             Destroy(collision.gameObject);
             vidas--;
-            hitmarker = Instantiate(hitmarker_prefab,transform.position,Quaternion.identity);
-            Hitmarker hitmarker_script = hitmarker.GetComponent<Hitmarker>();
-            hitmarker_script.Inicializar_enemigo_pos(this.gameObject.transform);
-            if (vidas <= 0)
+            if (hitmarker_destruido)
             {
-                Destroy(hitmarker);
-                Destroy(hitmarker_script);
-                Destroy(gameObject);
+                hitmarker = Instantiate(hitmarker_prefab, transform.position, Quaternion.identity);
+                Hitmarker hitmarker_script = hitmarker.GetComponent<Hitmarker>();
+                hitmarker_script.Inicializar_enemigo_pos(this.gameObject.transform);
+                if (vidas <= 0)
+                {
+                    Destroy(hitmarker_script);
+                    gameObject.GetComponent<Enemigo_Navmesh>().Delete_bubble();
+                    Destroy(gameObject);
+                }
             }
+            
+            
             
         }
         else if (collision.gameObject.CompareTag("Player"))// si choca con el jugador

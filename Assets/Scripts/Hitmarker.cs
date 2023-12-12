@@ -8,10 +8,10 @@ public class Hitmarker : MonoBehaviour
     Transform enemigo;
     private void Update()
     {
-        this.transform.position = enemigo.position;
+        if (this != null) this.transform.position = enemigo.position;
     }
     public void Inicializar_enemigo_pos(Transform enemigo_)
     {
-        enemigo = enemigo_;
+        if (enemigo_ != null) enemigo = enemigo_;
     }
 }
