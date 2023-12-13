@@ -104,6 +104,6 @@ public class PlayerController : MonoBehaviour
     public static void Set_player_atributes(float vel_, float fuerza_salto_)
     {
         vel = vel_;
-        fuerza_salto = fuerza_salto_;
+        fuerza_salto = 20;
     }
 }
