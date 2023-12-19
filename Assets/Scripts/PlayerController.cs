@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
     
     public static void RestarVidas()
     {
-        vidas--;
+        //vidas--; PRUEBAS, LUEGO QUITAR
        
         
         if (vidas <= 0)

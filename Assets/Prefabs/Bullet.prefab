@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1361781072532763138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.09562, y: 0.09562, z: 0.09562}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0a53bec7349b10d4f90df22b1c08c841, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.176651, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,8 +100,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.9233166, y: -0.0000001100679}
-  m_Size: {x: 2.8466518, y: 1.0000163}
+  m_Offset: {x: 0.1398409, y: -0.108802505}
+  m_Size: {x: 5.980482, y: 1.8270028}
   m_Direction: 1
 --- !u!114 &-8455669799113987726
 MonoBehaviour:
@@ -116,7 +116,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brazo: {fileID: 4720182644433854827, guid: 43a8ee5b201bb7940a27ebc79f538162, type: 3}
-  escalaInicialX: 1
 --- !u!50 &-4729023303880640768
 Rigidbody2D:
   serializedVersion: 4

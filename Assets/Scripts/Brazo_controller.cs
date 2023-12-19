@@ -73,7 +73,7 @@ public class Brazo_controller : MonoBehaviour
             balas_disparadas++;
             if(balas_disparadas < sobrecalentamiento)
             {
-                anim.SetBool("Sobrecalentamiento", false);
+                //anim.SetBool("Sobrecalentamiento", false);
                 Disparar();
             }
             else
@@ -260,6 +260,7 @@ public class Brazo_controller : MonoBehaviour
             balas_disparadas = 0;
             can_disparar = true;
             timer = 2;
+            anim.SetBool("Sobrecalentamiento", false);
         }
     }
 }

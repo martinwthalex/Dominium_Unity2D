@@ -22,7 +22,7 @@ public class Enemigo_Navmesh : MonoBehaviour
     [SerializeField] GameObject bubble_prefab;
     bool bubble_creada = false;
     public bubble_enem_pulmon bubble_Enem_Pulmon_ = null;
-
+    Transform transform_inicial;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +35,7 @@ public class Enemigo_Navmesh : MonoBehaviour
         velocidad_inicial = agente.speed;
         aceleracion_inicial = agente.acceleration;
         animator = this.GetComponent<Animator>();
-        
+        transform_inicial = agente.gameObject.transform;
     }
     
     // Update is called once per frame
@@ -81,14 +81,15 @@ public class Enemigo_Navmesh : MonoBehaviour
                 Crear_bubble();
             }
             
-            agente.speed = velocidad_inicial * 2;
-            agente.acceleration = aceleracion_inicial * 2;
+            agente.speed = velocidad_inicial * 1.5f;
+            agente.acceleration = aceleracion_inicial * 1.5f;
             agente.SetDestination(personaje.position);
             objetivo = personaje;
             Mantener_distancia();
         }
         else
         {
+            agente.gameObject.transform.rotation = transform_inicial.rotation;
             Delete_bubble();
             agente.speed = velocidad_inicial;
             agente.acceleration = aceleracion_inicial;
@@ -111,12 +112,14 @@ public class Enemigo_Navmesh : MonoBehaviour
     void Mantener_distancia()
     {
         agente.stoppingDistance = 6;
-        if(agente.remainingDistance < 6)
+        Recolocar_enemigo();
+        if (agente.remainingDistance < 6)
         {
-            Atacar(true);
             
+            Atacar(true);
+
             timer -= Time.deltaTime;
-            if(timer <= 0)
+            if (timer <= 0)
             {
                 PlayerController.RestarVidas();
                 timer = 1f;
@@ -143,5 +146,30 @@ public class Enemigo_Navmesh : MonoBehaviour
         Destroy(bubble);
         bubble_creada = false;
     }
-    
+    void Recolocar_enemigo()
+    {
+        // Dentro del script del enemigo
+        Vector3 directionToPlayer = personaje.position - transform.position;
+        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+
+        // Redondear el ángulo a múltiplos de 90 grados
+        float roundedAngle = Mathf.Round(angle / 90) * 90;
+
+        // Calcular la rotación basada en el ángulo redondeado
+        Quaternion targetRotation = Quaternion.Euler(0, 0, roundedAngle);
+
+        // Calcular la posición alrededor del jugador
+        Vector3 offset = new Vector3(-1.0f, 0.0f, 0.0f);  // Ajusta el offset según sea necesario
+        Vector3 rotatedOffset = targetRotation * offset;
+        Vector3 targetPosition = personaje.position + rotatedOffset;
+
+        // Mover el enemigo hacia la posición alrededor del jugador
+        float moveSpeed = 5f;  // Ajusta la velocidad de movimiento según sea necesario
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+        // Aplicar la rotación al enemigo
+        float rotationSpeed = 10f;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+    }
 }
