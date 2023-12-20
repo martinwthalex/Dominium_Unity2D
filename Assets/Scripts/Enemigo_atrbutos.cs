@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemigo_atrbutos : MonoBehaviour
 {
    
-    int vidas;
+    public int vidas;
     GameObject hitmarker;
     public static bool hitmarker_destruido = true;
     [SerializeField] GameObject hitmarker_prefab;

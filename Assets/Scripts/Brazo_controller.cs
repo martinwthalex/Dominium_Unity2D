@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting.Dependencies.Sqlite;
+//using System.Collections;
+//using System.Collections.Generic;
+//using Unity.Burst.Intrinsics;
+//using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class Brazo_controller : MonoBehaviour
 {
     public Transform jugador, cañon;
-    public float timer = 2;
+    public float timer_sobrecalentamiento = 2;
     
+    private float tiempoUltimoDisparo = 0f;
+    public float intervaloEntreDisparos = 0.5f; // Ajusta este valor según tus necesidades
+   
     public float velocidadRotacion = 100f;
     public float escalaInicialX;
     public GameObject balaPrefab;
@@ -22,7 +25,7 @@ public class Brazo_controller : MonoBehaviour
     Vector3 direccion;
     bool izquierda, derecha, arriba, abajo;
     public static bool disparo_plataformas;
-    const int sobrecalentamiento = 10;
+    const int sobrecalentamiento = 30;
     
     int balas_disparadas = 0;
     bool can_disparar = true;
@@ -39,6 +42,8 @@ public class Brazo_controller : MonoBehaviour
 
     void Update()
     {
+        
+        
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             izquierda = true;
@@ -68,21 +73,33 @@ public class Brazo_controller : MonoBehaviour
         RotarBrazo(direccion);
         
         SeguirProtagonista();
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && can_disparar)
         {
             balas_disparadas++;
-            if(balas_disparadas < sobrecalentamiento)
+            if(balas_disparadas <= sobrecalentamiento)
             {
                 //anim.SetBool("Sobrecalentamiento", false);
                 Disparar();
+                //print("PUM!");
             }
-            else
+            else 
             {
-                if (can_disparar)
+                float tiempoActual = Time.time;
+                float tiempoDesdeUltimoDisparo = tiempoActual - tiempoUltimoDisparo;
+                if (tiempoDesdeUltimoDisparo <= intervaloEntreDisparos)
                 {
                     Sobrecalentamiento_arma();
+                    //print("CALOR");
                 }
+                else
+                {
+                    Disparar();
+                    
+                }
+                tiempoUltimoDisparo = tiempoActual;
+               
             }
+            
         }
         if (Input.GetKeyDown(KeyCode.Z) && derecha && disparo_plataformas || Input.GetKeyDown(KeyCode.Z) && izquierda && disparo_plataformas)
         {
@@ -254,12 +271,12 @@ public class Brazo_controller : MonoBehaviour
     {
         anim.SetBool("Sobrecalentamiento", true);
         can_disparar = false;
-        timer -= Time.deltaTime;
-        if(timer <= 0)
+        timer_sobrecalentamiento -= Time.deltaTime;
+        if(timer_sobrecalentamiento <= 0)
         {
             balas_disparadas = 0;
             can_disparar = true;
-            timer = 2;
+            timer_sobrecalentamiento = 2;
             anim.SetBool("Sobrecalentamiento", false);
         }
     }

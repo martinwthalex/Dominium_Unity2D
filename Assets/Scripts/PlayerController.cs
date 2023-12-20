@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     static float vel = 10;
-     static float fuerza_salto = 15;
+     static float fuerza_salto = 18;
     bool canJump = true;
     SpriteRenderer sr;
     public static int vidas;
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         vidas = 3;
-        Set_player_atributes(10, 15);
+        Set_player_atributes();
         anim = GetComponent<Animator>();
     }
 
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
     
     public static void RestarVidas()
     {
-        //vidas--; PRUEBAS, LUEGO QUITAR
+        vidas--; 
        
         
         if (vidas <= 0)
@@ -108,9 +108,9 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    public static void Set_player_atributes(float vel_, float fuerza_salto_)
+    public static void Set_player_atributes(float vel_ = 10, float fuerza_salto_ = 18)
     {
         vel = vel_;
-        fuerza_salto = 15;
+        fuerza_salto = fuerza_salto_;
     }
 }

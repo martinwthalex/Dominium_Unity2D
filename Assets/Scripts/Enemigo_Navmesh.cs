@@ -17,7 +17,7 @@ public class Enemigo_Navmesh : MonoBehaviour
     float velocidad_inicial;
     float aceleracion_inicial;
     private Animator animator;
-    float timer = 1f;
+    float timer = 2f;
     public GameObject bubble;
     [SerializeField] GameObject bubble_prefab;
     bool bubble_creada = false;
@@ -122,7 +122,7 @@ public class Enemigo_Navmesh : MonoBehaviour
             if (timer <= 0)
             {
                 PlayerController.RestarVidas();
-                timer = 1f;
+                timer = 2f;
             }
         }
         else
