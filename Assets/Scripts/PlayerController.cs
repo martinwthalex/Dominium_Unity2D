@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
-            sr.flipX = false;
+            //sr.flipX = false;
             
             rb.velocity = new Vector2(rb.velocity.x, fuerza_salto);
             canJump = false;

@@ -78,12 +78,19 @@ public class Enemigo_Navmesh : MonoBehaviour
         {
             if (!bubble_creada)
             {
-                Crear_bubble();
+                agente.SetDestination(personaje.position);
+                agente.speed = velocidad_inicial * 1.5f;
+                agente.acceleration = aceleracion_inicial * 1.5f;
+                
             }
-            
-            agente.speed = velocidad_inicial * 1.5f;
-            agente.acceleration = aceleracion_inicial * 1.5f;
-            agente.SetDestination(personaje.position);
+            else
+            {
+                agente.SetDestination(this.gameObject.transform.position);
+                agente.speed = velocidad_inicial * 0;
+                agente.acceleration = aceleracion_inicial * 0;
+                agente.angularSpeed = 0f;
+                
+            }
             objetivo = personaje;
             Mantener_distancia();
         }
@@ -111,11 +118,14 @@ public class Enemigo_Navmesh : MonoBehaviour
     }
     void Mantener_distancia()
     {
-        agente.stoppingDistance = 6;
+        agente.stoppingDistance = 20;
         Recolocar_enemigo();
-        if (agente.remainingDistance < 6)
+        if (agente.remainingDistance < 4f)
         {
-            
+            if (!bubble_creada)
+            {
+                Crear_bubble();
+            }
             Atacar(true);
 
             timer -= Time.deltaTime;
@@ -140,13 +150,17 @@ public class Enemigo_Navmesh : MonoBehaviour
         bubble_Enem_Pulmon_ = bubble.GetComponent<bubble_enem_pulmon>();
         bubble_Enem_Pulmon_.Inicializar_bubble_pos(this.transform);
         bubble_creada = true;
+        
+        
     }
     public void Delete_bubble()
     {
         Destroy(bubble);
         bubble_creada = false;
+        //agente.SetDestination(personaje.position);
+        
     }
-    void Recolocar_enemigo()
+    void Recolocar_enemigo()// MOVE TOWARDS HACE QUE AUNQUE EL DESTINATION SEA ÉL MISMO, SE MUEVA HACIA EL JUGADOR --> ARREGLAR 
     {
         // Dentro del script del enemigo
         Vector3 directionToPlayer = personaje.position - transform.position;
@@ -159,7 +173,7 @@ public class Enemigo_Navmesh : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, 0, roundedAngle);
 
         // Calcular la posición alrededor del jugador
-        Vector3 offset = new Vector3(-1.0f, 0.0f, 0.0f);  // Ajusta el offset según sea necesario
+        Vector3 offset = new Vector3(5f, 0f, 0.0f);  // Ajusta el offset según sea necesario
         Vector3 rotatedOffset = targetRotation * offset;
         Vector3 targetPosition = personaje.position + rotatedOffset;
 

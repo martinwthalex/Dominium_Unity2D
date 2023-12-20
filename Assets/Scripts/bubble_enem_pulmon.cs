@@ -20,7 +20,7 @@ public class bubble_enem_pulmon : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController.Set_player_atributes(5,5);
+            PlayerController.Set_player_atributes(5);
             player_inBubble = true;
         }
         
