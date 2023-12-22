@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class Enemigo_Navmesh : MonoBehaviour
     public Transform[] puntosRuta;
     private int indiceRuta = 0;
     private bool objetivo_detectado = false;
+    private bool chasing;
     private Transform objetivo;
     private SpriteRenderer sr;
     float distancia;
@@ -17,7 +19,8 @@ public class Enemigo_Navmesh : MonoBehaviour
     float velocidad_inicial;
     float aceleracion_inicial;
     private Animator animator;
-    float timer = 2f;
+    float timer;
+    float tiempo_volver_perseguir;
     public GameObject bubble;
     [SerializeField] GameObject bubble_prefab;
     bool bubble_creada = false;
@@ -36,6 +39,9 @@ public class Enemigo_Navmesh : MonoBehaviour
         aceleracion_inicial = agente.acceleration;
         animator = this.GetComponent<Animator>();
         transform_inicial = agente.gameObject.transform;
+        timer = 2f;
+        chasing = false;
+        tiempo_volver_perseguir = 0.8f;
     }
     
     // Update is called once per frame
@@ -56,17 +62,25 @@ public class Enemigo_Navmesh : MonoBehaviour
                 
             }
         }
-        if (distancia < 9)
+        if (!chasing)
         {
-            objetivo_detectado = true;
+            if (distancia < 9)
+            {
+                objetivo_detectado = true;
+                chasing = true;
+            }
+            else
+            {
+                agente.stoppingDistance = stopping_distance;
+                objetivo_detectado = false;
+                
+            }
         }
         else
         {
-            agente.stoppingDistance = stopping_distance;
-            objetivo_detectado = false;
+            objetivo_detectado = true;
         }
-        //else objetivo_detectado = false;
-        //poner un else para que vuelva a su posicion original si escapamos del enemigo
+        
         Movimiento_enemigo(objetivo_detectado);
         Rotar_enemigo();
         
@@ -81,17 +95,35 @@ public class Enemigo_Navmesh : MonoBehaviour
                 agente.SetDestination(personaje.position);
                 agente.speed = velocidad_inicial * 1.5f;
                 agente.acceleration = aceleracion_inicial * 1.5f;
-                
+                objetivo = personaje;
             }
             else
             {
-                agente.SetDestination(this.gameObject.transform.position);
-                agente.speed = velocidad_inicial * 0;
-                agente.acceleration = aceleracion_inicial * 0;
-                agente.angularSpeed = 0f;
-                
+                if (bubble_enem_pulmon.Get_player_inBubble())
+                {
+                    agente.SetDestination(this.gameObject.transform.position);
+                    agente.speed = velocidad_inicial * 0;
+                    agente.acceleration = aceleracion_inicial * 0;
+                    agente.angularSpeed = 0f;
+                    objetivo = this.gameObject.transform;
+                }
+                else
+                {
+                    Delete_bubble();
+                    tiempo_volver_perseguir -= Time.deltaTime;
+                    if(tiempo_volver_perseguir <= 0)
+                    {
+                        agente.SetDestination(personaje.position);
+                        agente.speed = velocidad_inicial * 1.5f;
+                        agente.acceleration = aceleracion_inicial * 1.5f;
+                        objetivo = personaje;
+                        tiempo_volver_perseguir = 0.8f;
+                    }
+                    
+                }
+
             }
-            objetivo = personaje;
+            
             Mantener_distancia();
         }
         else
@@ -100,7 +132,7 @@ public class Enemigo_Navmesh : MonoBehaviour
             Delete_bubble();
             agente.speed = velocidad_inicial;
             agente.acceleration = aceleracion_inicial;
-           
+
             agente.SetDestination(puntosRuta[indiceRuta].position);
             objetivo = puntosRuta[indiceRuta];
         }
@@ -118,9 +150,9 @@ public class Enemigo_Navmesh : MonoBehaviour
     }
     void Mantener_distancia()
     {
-        agente.stoppingDistance = 20;
+        agente.stoppingDistance = 4;
         Recolocar_enemigo();
-        if (agente.remainingDistance < 4f)
+        if (objetivo == personaje && agente.remainingDistance < 2.5f)
         {
             if (!bubble_creada)
             {
@@ -131,9 +163,24 @@ public class Enemigo_Navmesh : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
+                //print("Distancia:  " + agente.remainingDistance + "\nObjetivo: " + agente.destination.ToString() + "\nAgente: " + this.gameObject);
                 PlayerController.RestarVidas();
                 timer = 2f;
             }
+            
+        }
+        else if(objetivo == this.gameObject.transform)
+        {
+            Atacar(true);
+
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                //print("Distancia:  " + agente.remainingDistance + "\nObjetivo: " + agente.destination.ToString() + "\nAgente: " + this.gameObject);
+                PlayerController.RestarVidas();
+                timer = 2f;
+            }
+            
         }
         else
         {
@@ -157,33 +204,36 @@ public class Enemigo_Navmesh : MonoBehaviour
     {
         Destroy(bubble);
         bubble_creada = false;
-        //agente.SetDestination(personaje.position);
+        Atacar(false);
         
     }
     void Recolocar_enemigo()// MOVE TOWARDS HACE QUE AUNQUE EL DESTINATION SEA ÉL MISMO, SE MUEVA HACIA EL JUGADOR --> ARREGLAR 
     {
-        // Dentro del script del enemigo
-        Vector3 directionToPlayer = personaje.position - transform.position;
-        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+        if (!bubble_creada)
+        {
+            // Dentro del script del enemigo
+            Vector3 directionToPlayer = personaje.position - transform.position;
+            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
 
-        // Redondear el ángulo a múltiplos de 90 grados
-        float roundedAngle = Mathf.Round(angle / 90) * 90;
+            // Redondear el ángulo a múltiplos de 90 grados
+            float roundedAngle = Mathf.Round(angle / 90) * 90;
 
-        // Calcular la rotación basada en el ángulo redondeado
-        Quaternion targetRotation = Quaternion.Euler(0, 0, roundedAngle);
+            // Calcular la rotación basada en el ángulo redondeado
+            Quaternion targetRotation = Quaternion.Euler(0, 0, roundedAngle);
 
-        // Calcular la posición alrededor del jugador
-        Vector3 offset = new Vector3(5f, 0f, 0.0f);  // Ajusta el offset según sea necesario
-        Vector3 rotatedOffset = targetRotation * offset;
-        Vector3 targetPosition = personaje.position + rotatedOffset;
+            // Calcular la posición alrededor del jugador
+            Vector3 offset = new Vector3(5f, 0f, 0.0f);  // Ajusta el offset según sea necesario
+            Vector3 rotatedOffset = targetRotation * offset;
+            Vector3 targetPosition = personaje.position + rotatedOffset;
 
-        // Mover el enemigo hacia la posición alrededor del jugador
-        float moveSpeed = 5f;  // Ajusta la velocidad de movimiento según sea necesario
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            // Mover el enemigo hacia la posición alrededor del jugador
+            float moveSpeed = 5f;  // Ajusta la velocidad de movimiento según sea necesario
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-        // Aplicar la rotación al enemigo
-        float rotationSpeed = 10f;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            // Aplicar la rotación al enemigo
+            float rotationSpeed = 10f;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+        }
     }
 }

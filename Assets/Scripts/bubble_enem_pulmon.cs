@@ -6,6 +6,10 @@ public class bubble_enem_pulmon : MonoBehaviour
 {
     Transform enemigo;
     public static bool player_inBubble = false;
+    private void Start()
+    {
+        player_inBubble = false;
+    }
     private void Update()
     {
         if (this != null) this.transform.position = enemigo.position;
