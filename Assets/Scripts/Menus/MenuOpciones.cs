@@ -24,6 +24,8 @@ public class MenuOpciones : MonoBehaviour
     public Image panelBrillo; //Panel para cambiar el alpha y simular aumento o disminucion de brillo
     [SerializeField] TMP_Text porcentaje;
 
+    [SerializeField] GameObject ObjetoPadre;
+
     void Start()
     {
         if (Screen.fullScreen)
@@ -119,5 +121,6 @@ public class MenuOpciones : MonoBehaviour
         {
             SceneManager.LoadScene("MenuInicial");
         }
+        ObjetoPadre.SetActive(false);
     }
 }
