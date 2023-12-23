@@ -111,7 +111,13 @@ public class MenuOpciones : MonoBehaviour
 
     public void Back()
     {
-        
-        SceneManager.LoadScene("MenuInicial");
+        if (Datos.escena == 1)
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("MenuInicial");
+        }
     }
 }

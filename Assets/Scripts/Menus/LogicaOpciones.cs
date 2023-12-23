@@ -17,6 +17,7 @@ public class LogicaOpciones : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             MostrarOpciones();
+            Datos.escena = 1;
         }
     }
 
