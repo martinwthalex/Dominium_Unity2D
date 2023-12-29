@@ -1,0 +1,333 @@
+fileFormatVersion: 2
+guid: a9b9c673478181e42b4e2193c1332af9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 1210
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.33214438, y: 0.53480685}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 908f5f12b517e94439678b05625020cc
+      internalID: -1002085593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 1210
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.37143147, y: 0.5447517}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eae240ac57a9c254b81887a3ce331915
+      internalID: 150382128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 2427
+        y: 1210
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.40000397, y: 0.54972404}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ac19482c930560419d6393179adb335
+      internalID: -1055123275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 618
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.34284925, y: 0.4502748}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1810032edd1e084381a63952557f900
+      internalID: 1101404353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 618
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.37856513, y: 0.4353573}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1bd49c9e5d66a34d862489f050ee31e
+      internalID: -174047093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 2427
+        y: 618
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.4214245, y: 0.4204398}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9f7a2df1a68514d9c298ffb3810c2e
+      internalID: -971235854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 26
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.364279, y: 0.33093557}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12e0317ba6651d34dbf480904b94b78d
+      internalID: -2126749990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 26
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.3535641, y: 0.38563284}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a198382ccc154dc4b88b83b902e0094f
+      internalID: -1372446327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: brazo_idle_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 2427
+        y: 26
+        width: 788
+        height: 566
+      alignment: 9
+      pivot: {x: 0.41428092, y: 0.38066036}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3db90eccb1033e45918ecfd9b6bb34b
+      internalID: -493660136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      brazo_idle_spritesheet_0: -1002085593
+      brazo_idle_spritesheet_1: 150382128
+      brazo_idle_spritesheet_2: -1055123275
+      brazo_idle_spritesheet_3: 1101404353
+      brazo_idle_spritesheet_4: -174047093
+      brazo_idle_spritesheet_5: -971235854
+      brazo_idle_spritesheet_6: -2126749990
+      brazo_idle_spritesheet_7: -1372446327
+      brazo_idle_spritesheet_8: -493660136
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -25,8 +25,12 @@ public class BulletMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Floor"))
+        {
+            print(collision.gameObject.tag);
             Destroy(gameObject);
-
+        }
+           
+        
     }
     public void InicializarBala(Vector3 direccion, float velocidad)
     {
@@ -41,7 +45,7 @@ public class BulletMovement : MonoBehaviour
         }
         this.velocidad = velocidad;
         this.direccion = direccion;
-        
+        print(direccion.x +" "+ direccion.y);
     }
 
     void MoverBala()
