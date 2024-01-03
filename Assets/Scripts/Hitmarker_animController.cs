@@ -8,6 +8,7 @@ public class Hitmarker_animController : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Enemigo_atrbutos.hitmarker_destruido = false;
+        Basico_enem.hitmarker_destruido = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -23,6 +24,7 @@ public class Hitmarker_animController : StateMachineBehaviour
         Destroy(animator.gameObject);
         Destroy(this);
         Enemigo_atrbutos.hitmarker_destruido = true;
+        Basico_enem.hitmarker_destruido = true;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

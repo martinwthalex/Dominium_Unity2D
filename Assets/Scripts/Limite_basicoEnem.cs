@@ -25,13 +25,20 @@ public class Limite_basicoEnem : MonoBehaviour
 
     private void Update()
     {
-        if (Basico_enem.Get_srFlip())
+        if(basico_enem != null)
         {
-            this.transform.position = basico_enem.position + new Vector3(distancia, 0f);
+            if (Basico_enem.Get_srFlip())
+            {
+                this.transform.position = basico_enem.position + new Vector3(distancia, 0f);
+            }
+            else
+            {
+                this.transform.position = basico_enem.position + new Vector3(-distancia, 0f);
+            }
         }
         else
         {
-            this.transform.position = basico_enem.position + new Vector3(-distancia, 0f);
+            Destroy(gameObject);
         }
     }
 }

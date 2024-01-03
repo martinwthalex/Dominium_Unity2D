@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Timeline;
 
 
 public class Basico_enem : MonoBehaviour
@@ -14,7 +16,10 @@ public class Basico_enem : MonoBehaviour
     public Transform personaje;
     private NavMeshAgent agente;
     bool patrulla;
-
+    int vidas;
+    GameObject hitmarker;
+    public static bool hitmarker_destruido;
+    [SerializeField] GameObject hitmarker_prefab;
     private void Start()
     {
         limite = false;
@@ -22,10 +27,12 @@ public class Basico_enem : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         agente = GetComponent<NavMeshAgent>();
         vel = 5;
+        vidas = 2;
         patrulla = true;
         agente.updateRotation = false;
         agente.updateUpAxis = false;
         agente.enabled = false;
+        hitmarker_destruido = true;
     }
     private void Update()
     {
@@ -94,6 +101,7 @@ public class Basico_enem : MonoBehaviour
 
     public static bool Get_srFlip()
     {
+        
         if (sr.flipX)
         {
             return true;
@@ -116,6 +124,30 @@ public class Basico_enem : MonoBehaviour
         else
         {
             Set_srFlip(true);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("bala"))// si choca con la bala 
+        {
+            Destroy(collision.gameObject);
+            vidas--;
+            if (hitmarker_destruido)
+            {
+                hitmarker = Instantiate(hitmarker_prefab, transform.position, Quaternion.identity);
+                Hitmarker hitmarker_script = hitmarker.GetComponent<Hitmarker>();
+                hitmarker_script.Inicializar_enemigo_pos(this.gameObject.transform);
+                if (vidas <= 0)
+                {
+                    Destroy(hitmarker_script);
+                    Destroy(gameObject);
+                    
+                }
+            }
+        }
+        else if (collision.gameObject.CompareTag("Player"))// si choca con el jugador
+        {
+            PlayerController.RestarVidas();
         }
     }
 }

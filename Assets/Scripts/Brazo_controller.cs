@@ -42,8 +42,6 @@ public class Brazo_controller : MonoBehaviour
 
     void Update()
     {
-        
-        
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             izquierda = true;

@@ -9,32 +9,22 @@ public class BulletMovement : MonoBehaviour
     private Vector3 direccion;
     private float velocidad;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+   
     // Update is called once per frame
     void Update()
     {
         MoverBala();
-        
     }
    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Floor"))
         {
-            print(collision.gameObject.tag);
             Destroy(gameObject);
         }
-           
-        
     }
     public void InicializarBala(Vector3 direccion, float velocidad)
     {
-        
         if(direccion == Vector3.left)
         {
             Flip_bala();
@@ -45,12 +35,10 @@ public class BulletMovement : MonoBehaviour
         }
         this.velocidad = velocidad;
         this.direccion = direccion;
-        print(direccion.x +" "+ direccion.y);
     }
 
     void MoverBala()
     {
-        
         //transform.Translate(new Vector3(direccion.x,direccion.y,0f) * velocidad * Time.deltaTime);
         transform.position += direccion * velocidad * Time.deltaTime;
         // Puedes agregar lógica para destruir la bala cuando está fuera de la pantalla u otras condiciones.

@@ -78,8 +78,6 @@ public class PlayerController : MonoBehaviour
     public static void RestarVidas()
     {
         vidas--; 
-       
-        
         if (vidas <= 0)
         {
             Morir();
