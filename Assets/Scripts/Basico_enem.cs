@@ -20,6 +20,7 @@ public class Basico_enem : MonoBehaviour
     GameObject hitmarker;
     public static bool hitmarker_destruido;
     [SerializeField] GameObject hitmarker_prefab;
+    float timer;
     private void Start()
     {
         limite = false;
@@ -33,6 +34,7 @@ public class Basico_enem : MonoBehaviour
         agente.updateUpAxis = false;
         agente.enabled = false;
         hitmarker_destruido = true;
+        timer = 2f;
     }
     private void Update()
     {
@@ -147,7 +149,12 @@ public class Basico_enem : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Player"))// si choca con el jugador
         {
-            PlayerController.RestarVidas();
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                PlayerController.RestarVidas();
+                timer = 2f;
+            }
         }
     }
 }
