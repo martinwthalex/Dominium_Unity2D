@@ -41,8 +41,19 @@ public class Enemigo_Navmesh : MonoBehaviour
         transform_inicial = agente.gameObject.transform;
         timer = 2f;
         if(!Wave_spawner.playing_waves) chasing = false;
-        else chasing = true;
+        else
+        {
+            chasing = true;
+            personaje = GameObject.FindGameObjectWithTag("Player").transform;
+        }
         tiempo_volver_perseguir = 0.8f;
+
+        NavMeshHit closestHit;
+
+        if (NavMesh.SamplePosition(gameObject.transform.position, out closestHit, 500f, NavMesh.AllAreas))
+            gameObject.transform.position = closestHit.position;
+        else
+            Debug.LogError("Could not find position on NavMesh!");
     }
     
     // Update is called once per frame
@@ -50,19 +61,21 @@ public class Enemigo_Navmesh : MonoBehaviour
     {
         this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         distancia = Vector3.Distance(personaje.position, this.transform.position);
-        if(this.transform.position == puntosRuta[indiceRuta].position)
+        if (!chasing)
         {
-            
-            if(indiceRuta < puntosRuta.Length - 1)
+            if (this.transform.position == puntosRuta[indiceRuta].position)
             {
-                indiceRuta++;
-            }
-            else if(indiceRuta == puntosRuta.Length - 1)
-            {
-                indiceRuta = 0;
-                
+                if (indiceRuta < puntosRuta.Length - 1)
+                {
+                    indiceRuta++;
+                }
+                else if (indiceRuta == puntosRuta.Length - 1)
+                {
+                    indiceRuta = 0;
+                }
             }
         }
+       
         if (!chasing)
         {
             if (distancia < 9)
