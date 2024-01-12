@@ -96,14 +96,14 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("hielo"))
         {
-            
             if(collision.GetContact(0).point.y < this.transform.position.y - 0.1f)// si se reduce de tamaño el personaje est evalor debe de cambiar
             {
                 canJump = true;
-
             }
-
-
+        }
+        if (collision.gameObject.CompareTag("pinchos"))
+        {
+            Morir();
         }
     }
     public static void Set_player_atributes(float vel_ = 10, float fuerza_salto_ = 18)

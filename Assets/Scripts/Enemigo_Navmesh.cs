@@ -40,7 +40,8 @@ public class Enemigo_Navmesh : MonoBehaviour
         animator = this.GetComponent<Animator>();
         transform_inicial = agente.gameObject.transform;
         timer = 2f;
-        chasing = false;
+        if(!Wave_spawner.playing_waves) chasing = false;
+        else chasing = true;
         tiempo_volver_perseguir = 0.8f;
     }
     

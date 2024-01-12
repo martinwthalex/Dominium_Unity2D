@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3350011122702163105}
   m_Layer: 0
   m_Name: Enem_pulmon
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6514d3ae80ebf544c8903c4c44b718e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vidas: 0
   hitmarker_prefab: {fileID: 2336482916309046106, guid: 259e192b9ec286743926a9ffc760d2f3, type: 3}
 --- !u!95 &3350011122702163105
 Animator:

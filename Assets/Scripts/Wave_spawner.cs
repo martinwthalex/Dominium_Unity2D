@@ -1,0 +1,99 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Wave_spawner : MonoBehaviour
+{
+    public enum Spawn_state { SPAWNING, WAITING, COUNTING };
+    public static bool playing_waves;
+    [System.Serializable]
+    public class Wave
+    {
+        public string name;
+        public Transform enemy;
+        public int count;
+        public float rate;
+    }
+    public Wave[] waves;
+    private int next_wave = 0;
+    public float time_between_waves = 5f;
+    public float wave_countDown;
+    private float search_countDown = 1f;
+    private Spawn_state state = Spawn_state.COUNTING;
+
+    private void Start()
+    {
+        wave_countDown = time_between_waves;
+        playing_waves = false;
+    }
+
+    private void Update()
+    {
+        if (playing_waves)
+        {
+            if (state == Spawn_state.WAITING)
+            {
+                if (!EnemyIsAlive())
+                {
+                    // begin a new round
+                    print("Wave completed!");
+                    return;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            if (wave_countDown <= 0)
+            {
+                if (state != Spawn_state.SPAWNING)
+                {
+                    // Start spawning wave 
+
+                    StartCoroutine(SpawnWave(waves[next_wave]));
+                }
+            }
+            else
+            {
+                wave_countDown -= Time.deltaTime;
+            }
+        }
+    }
+
+    bool EnemyIsAlive()
+    {
+        search_countDown -= Time.deltaTime;
+        if(search_countDown <= 0f)
+        {
+            search_countDown = 1f;
+            if (GameObject.FindGameObjectWithTag("enemigo") == null)// cambiar el tag dependiendo si son del estomago o de los pulmones
+            {
+                return false;                                       // otra opcion es set active false a los enemigos que no esten en la sala actual
+            }
+        }
+        return true;
+    }
+
+    IEnumerator SpawnWave(Wave _wave)
+    {
+        print("Spawning wave: " + _wave.name);
+        
+        state = Spawn_state.SPAWNING;
+
+        for(int i = 0; i < _wave.count; i++)
+        {
+            SpawnEnemy(_wave.enemy);
+            yield return new WaitForSeconds(1f / _wave.rate);
+        }
+
+        state = Spawn_state.WAITING;
+        yield break;
+    }
+
+    void SpawnEnemy(Transform _enemy)
+    {
+        print("Spawn enemy: " + _enemy.name);
+        Instantiate(_enemy, transform.position, transform.rotation);
+    }
+}
