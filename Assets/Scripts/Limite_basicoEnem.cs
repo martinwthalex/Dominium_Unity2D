@@ -6,6 +6,11 @@ public class Limite_basicoEnem : MonoBehaviour
 {
     public Transform basico_enem;
     float distancia = 1.5f;
+
+    private void Start()
+    {
+        this.basico_enem = this.gameObject.GetComponentInParent<Transform>();
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("wall"))

@@ -27,6 +27,7 @@ public class Basico_enem : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         agente = GetComponent<NavMeshAgent>();
+        personaje = GameObject.FindGameObjectWithTag("Player").transform;
         vel = 5;
         vidas = 2;
         patrulla = true;
@@ -147,7 +148,11 @@ public class Basico_enem : MonoBehaviour
                 }
             }
         }
-        else if (collision.gameObject.CompareTag("Player"))// si choca con el jugador
+        
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))// si choca con el jugador
         {
             timer -= Time.deltaTime;
             if (timer <= 0)

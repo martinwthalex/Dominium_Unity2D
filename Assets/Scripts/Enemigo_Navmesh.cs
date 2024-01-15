@@ -40,7 +40,11 @@ public class Enemigo_Navmesh : MonoBehaviour
         animator = this.GetComponent<Animator>();
         transform_inicial = agente.gameObject.transform;
         timer = 2f;
-        if(!Wave_spawner.playing_waves) chasing = false;
+        if (!Wave_spawner.playing_waves)
+        {
+            personaje = GameObject.FindGameObjectWithTag("Player").transform;
+            chasing = false;
+        }
         else
         {
             chasing = true;
@@ -48,10 +52,9 @@ public class Enemigo_Navmesh : MonoBehaviour
             agente = this.gameObject.GetComponent<NavMeshAgent>();
         }
         tiempo_volver_perseguir = 0.8f;
-
     }
     
-    // Update is called once per frame
+    
     void Update()
     {
         this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
