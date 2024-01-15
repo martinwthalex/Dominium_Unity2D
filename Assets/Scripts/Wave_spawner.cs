@@ -10,7 +10,7 @@ public class Wave_spawner : MonoBehaviour
     public class Wave
     {
         public string name;
-        public Transform enemy;
+        public GameObject enemy;
         public int count;
         public float rate;
     }
@@ -115,10 +115,10 @@ public class Wave_spawner : MonoBehaviour
         yield break;
     }
 
-    void SpawnEnemy(Transform _enemy)
+    void SpawnEnemy(GameObject _enemy)
     {
         print("Spawn enemy: " + _enemy.name);
         Transform _sp = spawn_points[Random.Range(0,spawn_points.Length)];
-        Instantiate(_enemy, _sp.position, _sp.rotation);
+        Instantiate(_enemy, transform.position,transform.rotation/*_sp.position, _sp.rotation*/);
     }
 }

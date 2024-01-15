@@ -45,15 +45,10 @@ public class Enemigo_Navmesh : MonoBehaviour
         {
             chasing = true;
             personaje = GameObject.FindGameObjectWithTag("Player").transform;
+            agente = this.gameObject.GetComponent<NavMeshAgent>();
         }
         tiempo_volver_perseguir = 0.8f;
 
-        NavMeshHit closestHit;
-
-        if (NavMesh.SamplePosition(gameObject.transform.position, out closestHit, 500f, NavMesh.AllAreas))
-            gameObject.transform.position = closestHit.position;
-        else
-            Debug.LogError("Could not find position on NavMesh!");
     }
     
     // Update is called once per frame
@@ -106,6 +101,7 @@ public class Enemigo_Navmesh : MonoBehaviour
         {
             if (!bubble_creada)
             {
+                if (!agente.isActiveAndEnabled) Debug.LogError("AGENTE VACIO");
                 agente.SetDestination(personaje.position);
                 agente.speed = velocidad_inicial * 1.5f;
                 agente.acceleration = aceleracion_inicial * 1.5f;
