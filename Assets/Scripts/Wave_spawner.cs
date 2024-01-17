@@ -119,6 +119,7 @@ public class Wave_spawner : MonoBehaviour
     {
         print("Spawn enemy: " + _enemy.name);
         Transform _sp = spawn_points[Random.Range(0,spawn_points.Length)];
-        Instantiate(_enemy, transform.position,transform.rotation/*_sp.position, _sp.rotation*/);
+        GameObject clon = _enemy;
+        Instantiate(clon, transform.position,transform.rotation/*_sp.position, _sp.rotation*/);
     }
 }

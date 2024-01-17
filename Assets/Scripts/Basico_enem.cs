@@ -8,10 +8,10 @@ using UnityEngine.Timeline;
 
 public class Basico_enem : MonoBehaviour
 {
-    static bool limite;
+    bool limite;
     Rigidbody2D rb;
     int vel;
-    static SpriteRenderer sr;
+    SpriteRenderer sr;
     float distancia;
     public Transform personaje;
     private NavMeshAgent agente;
@@ -97,12 +97,12 @@ public class Basico_enem : MonoBehaviour
         agente.SetDestination(personaje.position);
         Rotar();
     }
-    public static void Set_limite(bool limite_)
+    public void Set_limite(bool limite_)
     {
         limite = limite_;
     }
 
-    public static bool Get_srFlip()
+    public bool Get_srFlip()
     {
         
         if (sr.flipX)

@@ -9,14 +9,13 @@ public class Limite_basicoEnem : MonoBehaviour
 
     private void Start()
     {
-        this.basico_enem = this.gameObject.GetComponentInParent<Transform>();
+       
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("wall"))
-        {
-            Basico_enem.Set_limite(true);
-            
+        if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("pinchos") || collision.gameObject.CompareTag("enemy"))
+        { 
+            basico_enem.GetComponent<Basico_enem>().Set_limite(true);
         }
         
     }
@@ -24,7 +23,7 @@ public class Limite_basicoEnem : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
-            Basico_enem.Set_limite(true);
+            basico_enem.GetComponent<Basico_enem>().Set_limite(true);
         }
     }
 
@@ -32,7 +31,7 @@ public class Limite_basicoEnem : MonoBehaviour
     {
         if(basico_enem != null)
         {
-            if (Basico_enem.Get_srFlip())
+            if (this.basico_enem.GetComponent<Basico_enem>().Get_srFlip())
             {
                 this.transform.position = basico_enem.position + new Vector3(distancia, 0f);
             }
@@ -46,4 +45,6 @@ public class Limite_basicoEnem : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    
 }

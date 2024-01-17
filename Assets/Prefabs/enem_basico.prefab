@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7568119671605720283}
   m_Layer: 0
   m_Name: enem_basico
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,11 +175,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.275149
+      value: -8.247452
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4286425
+      value: -1.5992002
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalPosition.z
@@ -191,15 +191,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -213,6 +213,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3233365889298237775, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
+      propertyPath: basico_enem
+      value: 
+      objectReference: {fileID: 7568119671605720287}
     - target: {fileID: 3233365889298237810, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_Name
       value: Limite
