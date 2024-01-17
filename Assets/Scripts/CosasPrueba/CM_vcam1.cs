@@ -16,16 +16,20 @@ public class CM_vcam1 : MonoBehaviour
         transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
         if(transposer != null)
         {
-            if (!jugador.GetComponent<SpriteRenderer>().flipX)
+            if(jugador != null)
             {
-                transposer.m_ScreenX = 0.6f;
-                transposer.m_TrackedObjectOffset.x = 2f;
+                if (PlayerController.Get_flipx())
+                {
+                    //transposer.m_ScreenX = 0.6f;
+                    transposer.m_TrackedObjectOffset.x = -3f;
+                }
+                else
+                {
+                    //transposer.m_ScreenX = 0.4f;
+                    transposer.m_TrackedObjectOffset.x = 3f;
+                }
             }
-            else
-            {
-                transposer.m_ScreenX = 0.4f;
-                transposer.m_TrackedObjectOffset.x = -2f;
-            }
+            
         }
         else
         {
@@ -37,15 +41,18 @@ public class CM_vcam1 : MonoBehaviour
     {
         if (transposer != null)
         {
-            if (!jugador.GetComponent<SpriteRenderer>().flipX)
+            if (jugador != null)
             {
-                transposer.m_ScreenX = 0.6f;
-                transposer.m_TrackedObjectOffset.x = 2f;
-            }
-            else
-            {
-                transposer.m_ScreenX = 0.4f;
-                transposer.m_TrackedObjectOffset.x = -2f;
+                if (PlayerController.Get_flipx())
+                {
+                    //transposer.m_ScreenX = 0.6f;
+                    transposer.m_TrackedObjectOffset.x = -3f;
+                }
+                else
+                {
+                    //transposer.m_ScreenX = 0.4f;
+                    transposer.m_TrackedObjectOffset.x = 3f;
+                }
             }
         }
     }

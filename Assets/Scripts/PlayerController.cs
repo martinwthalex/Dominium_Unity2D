@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     static float vel = 10;
      static float fuerza_salto = 18;
     bool canJump = true;
-    SpriteRenderer sr;
+    static SpriteRenderer sr;
     public static int vidas;
     public GameObject brazo;
     Animator anim;
@@ -110,5 +110,9 @@ public class PlayerController : MonoBehaviour
     {
         vel = vel_;
         fuerza_salto = fuerza_salto_;
+    }
+    public static bool Get_flipx()
+    {
+        return sr.flipX;
     }
 }
