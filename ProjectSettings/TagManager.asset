@@ -11,6 +11,7 @@ TagManager:
   - opciones
   - pinchos
   - enemy
+  - zonaplataforma
   layers:
   - Default
   - TransparentFX

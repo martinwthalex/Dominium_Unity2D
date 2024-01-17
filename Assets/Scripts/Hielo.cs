@@ -30,13 +30,13 @@ public class Hielo : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("hielo"))
+        if (collision.gameObject.CompareTag("zonaplataforma") || collision.gameObject.CompareTag("hielo"))
         {
             rb_static = true;
             rb.bodyType = RigidbodyType2D.Static;
         }
 
-        if (collision.gameObject.CompareTag("Floor"))
+        if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("wall"))
         {
             Destroy(this.gameObject);
         }
