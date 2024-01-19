@@ -78,6 +78,7 @@ public class Wave_spawner : MonoBehaviour
             next_wave = 0;
             print("ALL WAVES COMPLETE!");
             Brazo_controller.Set_Can_Disparo_Plataformas(true);
+            this.enabled = false;
         }
         else
         {

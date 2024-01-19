@@ -13,7 +13,8 @@ public class CM_vcam1 : MonoBehaviour
     ushort expected_tracked_object_offset_X;
     public static float initial_orthoSize;
     public static float orthoSize_value;
-    float transition_vel;
+    float transition_vel_offset;
+    public static float transition_vel_ortho;
     private void Start()
     {
         cam = this.GetComponent<CinemachineVirtualCamera>();
@@ -22,11 +23,13 @@ public class CM_vcam1 : MonoBehaviour
         orthoSize_value = 10f;
         if (jugador == null) jugador = GameObject.FindGameObjectWithTag("Player");
         expected_tracked_object_offset_X = 3;
-        transition_vel = 1.5f;
+        transition_vel_offset = 4f;
+        transition_vel_ortho = 1f;
     }
     private void Update()
     {
-        SetTrackedObjectOffset_X(expected_tracked_object_offset_X);
+        if(!CameraChange.GetParkour())SetTrackedObjectOffset_X(expected_tracked_object_offset_X);
+        else SetTrackedObjectOffset_X(0);
     }
 
     void SetTrackedObjectOffset_X(ushort value_expected)
@@ -35,7 +38,7 @@ public class CM_vcam1 : MonoBehaviour
         {
             if (jugador != null)
             {
-                float t = transition_vel * Time.deltaTime;
+                float t = transition_vel_offset * Time.deltaTime;
                 transposer.m_TrackedObjectOffset.x = Mathf.Lerp(GetCurrentTrackedObjectOffset_X(), (jugador.GetComponent<PlayerController>().Get_flipx() ? -value_expected : value_expected), t); ;
             }
             else Debug.LogError("Player not found");
@@ -52,10 +55,10 @@ public class CM_vcam1 : MonoBehaviour
     {
         float time_past = 0.0f;
 
-        while (time_past < 2)// 2--> tiempo que tarda la camara en llegar al maximo punto de zoom/deszoom
+        while (time_past < transition_vel_ortho)// 2--> tiempo que tarda la camara en llegar al maximo punto de zoom/deszoom
         {
             // Calcula la interpolación lineal entre el orthographic size inicial y el nuevo
-            float t = time_past / 2;
+            float t = time_past / transition_vel_ortho;
             cam.m_Lens.OrthographicSize = Mathf.Lerp(initial_value, value, t);
 
             // Incrementa el tiempo pasado y espera un frame

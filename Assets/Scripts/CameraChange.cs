@@ -23,7 +23,15 @@ public class CameraChange : MonoBehaviour
             }
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        }
+    }
 
+    
     public static void SetParkour(bool _parkour)
     {
         parkour = _parkour;
