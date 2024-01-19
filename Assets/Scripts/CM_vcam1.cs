@@ -10,9 +10,10 @@ public class CM_vcam1 : MonoBehaviour
     static CinemachineVirtualCamera cam;
     [SerializeField] GameObject jugador;
     CinemachineFramingTransposer transposer;
-    ushort tracked_object_offset_X;
+    ushort expected_tracked_object_offset_X;
     public static float initial_orthoSize;
     public static float orthoSize_value;
+    float transition_vel;
     private void Start()
     {
         cam = this.GetComponent<CinemachineVirtualCamera>();
@@ -20,41 +21,42 @@ public class CM_vcam1 : MonoBehaviour
         initial_orthoSize = cam.m_Lens.OrthographicSize;
         orthoSize_value = 10f;
         if (jugador == null) jugador = GameObject.FindGameObjectWithTag("Player");
-        tracked_object_offset_X = 4;
-        SetTrackedObjectOffset_X(tracked_object_offset_X);
+        expected_tracked_object_offset_X = 3;
+        transition_vel = 1.5f;
     }
     private void Update()
     {
-        SetTrackedObjectOffset_X(tracked_object_offset_X);
+        SetTrackedObjectOffset_X(expected_tracked_object_offset_X);
     }
 
-    void SetTrackedObjectOffset_X(ushort value)
+    void SetTrackedObjectOffset_X(ushort value_expected)
     {
         if (transposer != null)
         {
             if (jugador != null)
             {
-                if (jugador.GetComponent<PlayerController>().Get_flipx())
-                {
-                    transposer.m_TrackedObjectOffset.x = -value;
-                }
-                else
-                {
-                    transposer.m_TrackedObjectOffset.x = value;
-                }
+                float t = transition_vel * Time.deltaTime;
+                transposer.m_TrackedObjectOffset.x = Mathf.Lerp(GetCurrentTrackedObjectOffset_X(), (jugador.GetComponent<PlayerController>().Get_flipx() ? -value_expected : value_expected), t); ;
             }
             else Debug.LogError("Player not found");
         }
+        
     }
-    public static IEnumerator SetOrthoSize(float value)
+    
+
+    float GetCurrentTrackedObjectOffset_X()
+    {
+        return transposer.m_TrackedObjectOffset.x;
+    }
+    public static IEnumerator SetOrthoSize(float value, float initial_value)
     {
         float time_past = 0.0f;
 
-        while (time_past < 2)
+        while (time_past < 2)// 2--> tiempo que tarda la camara en llegar al maximo punto de zoom/deszoom
         {
             // Calcula la interpolación lineal entre el orthographic size inicial y el nuevo
             float t = time_past / 2;
-            cam.m_Lens.OrthographicSize = Mathf.Lerp(initial_orthoSize, value, t);
+            cam.m_Lens.OrthographicSize = Mathf.Lerp(initial_value, value, t);
 
             // Incrementa el tiempo pasado y espera un frame
             time_past += Time.deltaTime;
@@ -68,6 +70,8 @@ public class CM_vcam1 : MonoBehaviour
         // Desactivar la lógica de transición o realizar otras acciones
         DisableTransitionLogic();
     }
+
+    
 
     private static void DisableTransitionLogic()
     {

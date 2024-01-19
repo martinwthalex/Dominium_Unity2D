@@ -15,11 +15,11 @@ public class CameraChange : MonoBehaviour
         {
             if(!parkour)
             {
-                StartCoroutine(CM_vcam1.SetOrthoSize(CM_vcam1.orthoSize_value));
+                StartCoroutine(CM_vcam1.SetOrthoSize(CM_vcam1.orthoSize_value, CM_vcam1.initial_orthoSize));
             }
             else
             {
-                StartCoroutine(CM_vcam1.SetOrthoSize(CM_vcam1.initial_orthoSize));
+                StartCoroutine(CM_vcam1.SetOrthoSize(CM_vcam1.initial_orthoSize, CM_vcam1.orthoSize_value));
             }
         }
     }
