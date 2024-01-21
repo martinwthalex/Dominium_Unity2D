@@ -6,6 +6,8 @@ public class Wave_spawner : MonoBehaviour
 {
     public enum Spawn_state { SPAWNING, WAITING, COUNTING };
     public static bool playing_waves;
+    public GameObject pistola_plataformas;
+    public GameObject cascada;
     [System.Serializable]
     public class Wave
     {
@@ -77,7 +79,8 @@ public class Wave_spawner : MonoBehaviour
         {
             next_wave = 0;
             print("ALL WAVES COMPLETE!");
-            Brazo_controller.Set_Can_Disparo_Plataformas(true);
+            Destroy(cascada);
+            pistola_plataformas.SetActive(true);
             this.enabled = false;
         }
         else

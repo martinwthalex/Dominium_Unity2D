@@ -12,6 +12,7 @@ TagManager:
   - pinchos
   - enemy
   - zonaplataforma
+  - bordecamara
   layers:
   - Default
   - TransparentFX

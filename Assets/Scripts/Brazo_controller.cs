@@ -20,7 +20,7 @@ public class Brazo_controller : MonoBehaviour
     float angulo;
     GameObject bala, hielo;
     private GameObject[] hielos_creados;
-    private int MAX_hielos = 2;
+    private int MAX_hielos = 4;
     private int contador = -1;
     Vector3 direccion;
     bool izquierda, derecha, arriba, abajo;

@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        vidas = 3;
+        vidas = 8;
         Set_player_atributes();
         anim = GetComponent<Animator>();
     }

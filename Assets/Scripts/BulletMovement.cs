@@ -45,10 +45,10 @@ public class BulletMovement : MonoBehaviour
     }
     void Flip_bala()
     {
-        this.transform.localScale = new Vector3(-0.2f, transform.localScale.y, transform.localScale.z);
+        this.transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
     void Reiniciar_flip()
     {
-        this.transform.localScale = new Vector3(0.2f, transform.localScale.y, transform.localScale.z);
+        this.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 }
