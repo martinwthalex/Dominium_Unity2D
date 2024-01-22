@@ -14,6 +14,5 @@ public class Health_controller : MonoBehaviour
     private void Update()
     {
         anim.SetInteger("Vida", PlayerController.vidas);
-        if (Input.GetKeyDown(KeyCode.Q)) PlayerController.RestarVidas();
     }
 }

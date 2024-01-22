@@ -79,6 +79,7 @@ public class Wave_spawner : MonoBehaviour
         {
             next_wave = 0;
             print("ALL WAVES COMPLETE!");
+            CameraChange.EnableCameraChanges();
             Destroy(cascada);
             pistola_plataformas.SetActive(true);
             this.enabled = false;

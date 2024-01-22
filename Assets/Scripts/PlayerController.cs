@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
         vidas = 8;
         Set_player_atributes();
         anim = GetComponent<Animator>();
+        SetPlayerCanPlay(false);
     }
 
     // Update is called once per frame
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour
         {
             Morir();
         }
+        SetPlayerCanPlay(true);
     }
     public static void Set_player_atributes(float vel_ = 10, float fuerza_salto_ = 18)
     {
@@ -114,5 +116,10 @@ public class PlayerController : MonoBehaviour
     public bool Get_flipx()
     {
         return GetComponent<SpriteRenderer>().flipX;
+    }
+
+    void SetPlayerCanPlay(bool _can_play)
+    {
+        this.enabled = _can_play;
     }
 }

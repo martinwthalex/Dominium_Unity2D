@@ -243,11 +243,16 @@ public class Brazo_controller : MonoBehaviour
         contador++;
         if(contador >= MAX_hielos)
         {
+            int n = 0;
             Destroy(hielos_creados[0]);
-            hielos_creados[0] = null;
-            hielos_creados[0] = hielos_creados[1];
-            hielos_creados[1] = hielo;
-            contador = 1;
+            hielos_creados[n] = null;
+            while(n < MAX_hielos)
+            {
+                if(n != (MAX_hielos -1))hielos_creados[n] = hielos_creados[n + 1];
+                else hielos_creados[n] = hielo;
+                n++;
+            }
+            contador--;
         }
         else
         {
