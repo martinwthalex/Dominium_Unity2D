@@ -148,7 +148,15 @@ public class Basico_enem : MonoBehaviour
                 }
             }
         }
-        
+        if (collision.gameObject.CompareTag("Player"))// si choca con el jugador
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                PlayerController.RestarVidas();
+                timer = 2f;
+            }
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -162,4 +170,6 @@ public class Basico_enem : MonoBehaviour
             }
         }
     }
+
+   
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Limite_basicoEnem : MonoBehaviour
 {
     public Transform basico_enem;
-    float distancia = 1f;
+    float distancia = 1.5f;
 
     private void Start()
     {
