@@ -230,16 +230,20 @@ public class Brazo_controller : MonoBehaviour
     void Disparo_plataformas()
     {
         Vector3 direccionDisparo = Vector3.right;
+        Vector3 offset = new Vector3();// el offset es para que el hielo spawnee lejos del cañon y no lo haga utilizando los pivots
+        float offset_value = 1f;
         if (derecha)
         {
             direccionDisparo = Vector3.right;
+            offset = new Vector3(offset_value, 0, 0);
         }
         else if (izquierda)
         {
             direccionDisparo = Vector3.left;
+            offset = new Vector3(-offset_value, 0, 0);
         }
         Quaternion rot = Quaternion.Euler(0f, 0f, 0);
-        hielo = Instantiate(hieloPrefab, cañon.position, rot);
+        hielo = Instantiate(hieloPrefab, cañon.position + offset, rot);
         contador++;
         if(contador >= MAX_hielos)
         {

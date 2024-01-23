@@ -106,8 +106,8 @@ public class Enemigo_Navmesh : MonoBehaviour
             {
                 if (!agente.isActiveAndEnabled) Debug.LogError("AGENTE VACIO");
                 agente.SetDestination(personaje.position);
-                agente.speed = velocidad_inicial * 1.5f;
-                agente.acceleration = aceleracion_inicial * 1.5f;
+                agente.speed = velocidad_inicial * 1.1f;
+                agente.acceleration = aceleracion_inicial * 1.1f;
                 objetivo = personaje;
             }
             else
@@ -127,8 +127,8 @@ public class Enemigo_Navmesh : MonoBehaviour
                     if(tiempo_volver_perseguir <= 0)
                     {
                         agente.SetDestination(personaje.position);
-                        agente.speed = velocidad_inicial * 1.5f;
-                        agente.acceleration = aceleracion_inicial * 1.5f;
+                        agente.speed = velocidad_inicial * 1.1f;
+                        agente.acceleration = aceleracion_inicial * 1.1f;
                         objetivo = personaje;
                         tiempo_volver_perseguir = 0.8f;
                     }

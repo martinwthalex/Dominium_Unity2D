@@ -41,6 +41,15 @@ public class Hielo : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        
+        if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("wall"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
     public void InicializarHielo(Vector3 direccion, float velocidad)
     {
         this.velocidad = velocidad;
