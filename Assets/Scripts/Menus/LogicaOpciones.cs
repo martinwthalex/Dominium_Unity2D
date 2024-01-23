@@ -1,28 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LogicaOpciones : MonoBehaviour
 {
-    public ControladorOpciones panelOpciones;
-    // Start is called before the first frame update
-    void Start()
-    {
-        panelOpciones = GameObject.FindGameObjectWithTag("opciones").GetComponent<ControladorOpciones>();
-    }
-
-    // Update is called once per frame
+    public GameObject panelOpciones;
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            MostrarOpciones();
+            MostrarPausa();
             Datos.escena = 1;
         }
     }
 
-    public void MostrarOpciones()
+    public void MostrarPausa()
     {
-        panelOpciones.pantallaOpciones.SetActive(true);
+        panelOpciones.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void Reanudar()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void ReloadScene()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

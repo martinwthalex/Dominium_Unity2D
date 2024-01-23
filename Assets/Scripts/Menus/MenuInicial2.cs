@@ -11,7 +11,7 @@ public class MenuInicial2 : MonoBehaviour
     }
     public void Jugar()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Comic");
         Datos.escena = 1;
         //SceneManager.LoadScene("MenuInicial");
     }
