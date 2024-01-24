@@ -11,14 +11,14 @@ public class HUD : MonoBehaviour
     
     private void Start()
     {
-        Set_panel_arma(true,"X to fire");
+        Set_panel_arma(true,"J to fire");
         
     }
     private void Update()
     {
         if (Brazo_controller.Get_Can_Disparo_Plataformas())
         {
-            Set_panel_arma(true, "Z to create new platform");
+            Set_panel_arma(true, "L to create new platform");
         }
     }
     private void Set_panel_arma(bool panel_setActive,string _texto)

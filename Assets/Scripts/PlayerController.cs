@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         //print(canJump);
         Movement(vel);
         Jump();
-        
+        if(Input.GetKey(KeyCode.F2)) Brazo_controller.Set_Can_Disparo_Plataformas(true);
         //Jugador_cayendo();
     }
 
@@ -59,14 +59,14 @@ public class PlayerController : MonoBehaviour
         }
         
 
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
             sr.flipX = false;
         }
     }
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (Input.GetKeyDown(KeyCode.I) && canJump)
         {
             //sr.flipX = false;
             

@@ -42,25 +42,25 @@ public class Brazo_controller : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             izquierda = true;
             derecha = false;
             arriba = false; abajo = false;
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             izquierda = false;
             derecha = true;
             arriba = false; abajo = false;
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             izquierda = false;
             derecha = false;
             arriba = true; abajo = false;
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             izquierda = false;
             derecha = false;
@@ -71,7 +71,7 @@ public class Brazo_controller : MonoBehaviour
         RotarBrazo(direccion);
         
         SeguirProtagonista();
-        if (Input.GetKeyDown(KeyCode.X) && can_disparar)
+        if (Input.GetKeyDown(KeyCode.J) && can_disparar)
         {
             balas_disparadas++;
             if(balas_disparadas <= sobrecalentamiento)
@@ -99,7 +99,7 @@ public class Brazo_controller : MonoBehaviour
             }
             
         }
-        if (Input.GetKeyDown(KeyCode.Z) && derecha && disparo_plataformas || Input.GetKeyDown(KeyCode.Z) && izquierda && disparo_plataformas)
+        if (Input.GetKeyDown(KeyCode.L) && derecha && disparo_plataformas || Input.GetKeyDown(KeyCode.Z) && izquierda && disparo_plataformas)
         {
             Disparo_plataformas();
             
@@ -114,10 +114,10 @@ public class Brazo_controller : MonoBehaviour
 
     Vector3 ObtenerDireccionPrioritaria()
     {
-        bool izquierda = Input.GetKey(KeyCode.LeftArrow);
-        bool derecha = Input.GetKey(KeyCode.RightArrow);
-        bool arriba = Input.GetKey(KeyCode.UpArrow);
-        bool abajo = Input.GetKey(KeyCode.DownArrow);
+        bool izquierda = Input.GetKey(KeyCode.A);
+        bool derecha = Input.GetKey(KeyCode.D);
+        bool arriba = Input.GetKey(KeyCode.W);
+        bool abajo = Input.GetKey(KeyCode.S);
 
         if (arriba && (izquierda || derecha))
         {
