@@ -59,10 +59,10 @@ public class PlayerController : MonoBehaviour
         }
         
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
-        {
-            sr.flipX = false;
-        }
+        //if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        //{
+        //    sr.flipX = false;
+        //}
     }
     void Jump()
     {

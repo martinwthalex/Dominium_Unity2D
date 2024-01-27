@@ -100,55 +100,71 @@ public class Enemigo_Navmesh : MonoBehaviour
 
     void Movimiento_enemigo(bool esDetectado)
     {
-        if (esDetectado)
+        if (esDetectado && !Wave_spawner.playing_waves)
         {
-            if (!bubble_creada)
-            {
-                if (!agente.isActiveAndEnabled) Debug.LogError("AGENTE VACIO");
-                agente.SetDestination(personaje.position);
-                agente.speed = velocidad_inicial * 1.1f;
-                agente.acceleration = aceleracion_inicial * 1.1f;
-                objetivo = personaje;
-            }
-            else
-            {
-                if (bubble_enem_pulmon.Get_player_inBubble())
-                {
-                    agente.SetDestination(this.gameObject.transform.position);
-                    agente.speed = velocidad_inicial * 0;
-                    agente.acceleration = aceleracion_inicial * 0;
-                    agente.angularSpeed = 0f;
-                    objetivo = this.gameObject.transform;
-                }
-                else
-                {
-                    Delete_bubble();
-                    tiempo_volver_perseguir -= Time.deltaTime;
-                    if(tiempo_volver_perseguir <= 0)
-                    {
-                        agente.SetDestination(personaje.position);
-                        agente.speed = velocidad_inicial * 1.1f;
-                        agente.acceleration = aceleracion_inicial * 1.1f;
-                        objetivo = personaje;
-                        tiempo_volver_perseguir = 0.8f;
-                    }
-                    
-                }
-
-            }
-            
-            Mantener_distancia();
+            Caza();
+        }
+        else if(esDetectado && this.gameObject.CompareTag("wave_pulmon") && Wave_spawner.playing_waves)
+        {
+            Caza();
         }
         else
         {
-            agente.gameObject.transform.rotation = transform_inicial.rotation;
-            Delete_bubble();
-            agente.speed = velocidad_inicial;
-            agente.acceleration = aceleracion_inicial;
-
-            agente.SetDestination(puntosRuta[indiceRuta].position);
-            objetivo = puntosRuta[indiceRuta];
+            Patrulla();
         }
+    }
+
+    void Caza()
+    {
+        if (!bubble_creada)
+        {
+            if (!agente.isActiveAndEnabled) Debug.LogError("AGENTE VACIO");
+            agente.SetDestination(personaje.position);
+            agente.speed = velocidad_inicial * 1.1f;
+            agente.acceleration = aceleracion_inicial * 1.1f;
+            objetivo = personaje;
+        }
+        else
+        {
+            if (bubble_enem_pulmon.Get_player_inBubble())
+            {
+                agente.SetDestination(this.gameObject.transform.position);
+                agente.speed = velocidad_inicial * 0;
+                agente.acceleration = aceleracion_inicial * 0;
+                agente.angularSpeed = 0f;
+                objetivo = this.gameObject.transform;
+            }
+            else
+            {
+                Delete_bubble();
+                tiempo_volver_perseguir -= Time.deltaTime;
+                if (tiempo_volver_perseguir <= 0)
+                {
+                    agente.SetDestination(personaje.position);
+                    agente.speed = velocidad_inicial * 1.1f;
+                    agente.acceleration = aceleracion_inicial * 1.1f;
+                    objetivo = personaje;
+                    tiempo_volver_perseguir = 0.8f;
+                }
+
+            }
+
+        }
+
+        Mantener_distancia();
+    }
+
+    void Patrulla()
+    {
+        agente.gameObject.transform.rotation = transform_inicial.rotation;
+        Delete_bubble();
+        agente.speed = velocidad_inicial;
+        agente.acceleration = aceleracion_inicial;
+
+        agente.SetDestination(puntosRuta[indiceRuta].position);
+        objetivo = puntosRuta[indiceRuta];
+
+        chasing = false;
     }
     void Rotar_enemigo()
     {

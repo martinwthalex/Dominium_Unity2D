@@ -82,6 +82,7 @@ public class Wave_spawner : MonoBehaviour
             CameraChange.EnableCameraChanges();
             Destroy(cascada);
             pistola_plataformas.SetActive(true);
+            playing_waves = false;
             this.enabled = false;
         }
         else
@@ -96,7 +97,7 @@ public class Wave_spawner : MonoBehaviour
         if(search_countDown <= 0f)
         {
             search_countDown = 1f;
-            if (GameObject.FindGameObjectWithTag("enemy") == null)// cambiar el tag dependiendo si son del estomago o de los pulmones
+            if (GameObject.FindGameObjectWithTag("wave_pulmon") == null)// cambiar el tag dependiendo si son del estomago o de los pulmones
             {
                 return false;                                       // otra opcion es set active false a los enemigos que no esten en la sala actual
             }

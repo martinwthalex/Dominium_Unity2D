@@ -13,6 +13,7 @@ TagManager:
   - enemy
   - zonaplataforma
   - bordecamara
+  - wave_pulmon
   layers:
   - Default
   - TransparentFX

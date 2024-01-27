@@ -7,7 +7,7 @@ public class Cascada : MonoBehaviour
     public Transform player;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("bala") && GameObject.FindGameObjectsWithTag("enemy").Length < 4 && Wave_spawner.playing_waves == false)
+        if (collision.gameObject.CompareTag("bala") && Wave_spawner.playing_waves == false)
         {
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
             this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
