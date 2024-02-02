@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         Set_player_atributes();
         anim = GetComponent<Animator>();
         SetPlayerCanPlay(false);
-        transform.position = new Vector3(1, 70, 0);
+        //transform.position = new Vector3(1, 70, 0);
     }
 
     // Update is called once per frame
