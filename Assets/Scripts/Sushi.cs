@@ -7,6 +7,7 @@ public class Sushi : MonoBehaviour
 {
     bool limite;
     Rigidbody2D rb;
+    private Animator anim;
     int vel;
     SpriteRenderer sr;
     float distancia;
@@ -21,6 +22,7 @@ public class Sushi : MonoBehaviour
     private void Start()
     {
         limite = false;
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         agente = GetComponent<NavMeshAgent>();
@@ -47,6 +49,7 @@ public class Sushi : MonoBehaviour
     }
     void Calcular_distancia()
     {
+        anim.SetFloat("distance", distancia);
         distancia = Vector2.Distance(this.transform.position, personaje.position);
         if (distancia < 7f)
         {
