@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7568119671605720281}
   - component: {fileID: 7568119671605720280}
   - component: {fileID: 7568119671605720283}
+  - component: {fileID: 3639250020784565280}
   m_Layer: 0
   m_Name: enem_basico
   m_TagString: enemy
@@ -30,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 7568119671605720285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -69.96001, y: 1.6441002, z: 0}
-  m_LocalScale: {x: 0.13041137, y: 0.13041137, z: 0.13041137}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9061975074980397912}
   m_Father: {fileID: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8406bfa70df217246accb596fd156c40, type: 3}
+  m_Sprite: {fileID: 1565017417, guid: c3f2a3506cb661848b47c5cf10cd14a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,8 +103,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.20879552, y: -0.06769085}
-  m_Size: {x: 3.5234902, y: 7.4846945}
+  m_Offset: {x: -0.014263153, y: -0.0069065094}
+  m_Size: {x: 0.41425323, y: 0.7698126}
   m_Direction: 0
 --- !u!50 &7568119671605720281
 Rigidbody2D:
@@ -162,6 +163,27 @@ NavMeshAgent:
   m_BaseOffset: 0.24999999
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &3639250020784565280
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7568119671605720285}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c67ec567950a3cf47bfb2a88ae3aa09c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5845007611482212885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -174,12 +196,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.277
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7125
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.247452
+      value: -1.26
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.5992002
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 3233365889298237773, guid: 26bc5be4cb57ca746a9c59c11517ad35, type: 3}
       propertyPath: m_LocalPosition.z
