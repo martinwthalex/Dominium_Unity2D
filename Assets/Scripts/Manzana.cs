@@ -151,10 +151,7 @@ public class Manzana : MonoBehaviour
                 }
             }
         }
-        if (collision.gameObject.CompareTag("Player"))// si choca con el jugador
-        {
-
-        }
+        
     }
 
 }

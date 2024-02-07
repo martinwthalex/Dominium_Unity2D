@@ -58,11 +58,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Run", false);
         }
         
-
-        //if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
-        //{
-        //    sr.flipX = false;
-        //}
     }
     void Jump()
     {
@@ -77,9 +72,9 @@ public class PlayerController : MonoBehaviour
 
     }
     
-    public static void RestarVidas()
+    public static void RestarVidas(int vidas_restar = 1)
     {
-        vidas--; 
+        vidas -= vidas_restar; 
         if (vidas <= 0)
         {
             Morir();

@@ -6,7 +6,7 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
-    [SerializeField] TMP_Text texto_arma;
+    [SerializeField] TMP_Text texto_arma, texto_vidas;
     [SerializeField] GameObject panel_arma;
     
     private void Start()
@@ -20,6 +20,7 @@ public class HUD : MonoBehaviour
         {
             Set_panel_arma(true, "L to create new platform");
         }
+        texto_vidas.text = PlayerController.vidas.ToString();
     }
     private void Set_panel_arma(bool panel_setActive,string _texto)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Limite_manzana : MonoBehaviour
 {
     public Transform manzana;
-    float distancia = 1.5f;
+    float distancia = 0.5f;
 
     private void Start()
     {
