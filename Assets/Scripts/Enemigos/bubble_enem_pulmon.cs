@@ -6,19 +6,23 @@ public class bubble_enem_pulmon : MonoBehaviour
 {
     Transform enemigo;
     public static bool player_inBubble = false;
+   
     private void Start()
     {
         player_inBubble = false;
     }
     private void Update()
     {
-        if (this != null) this.transform.position = enemigo.position;
-        
+        if (this != null) SeguimientoBurbuja();
+    }
+    
+    void SeguimientoBurbuja()
+    {
+        this.transform.position = enemigo.position;
     }
     public void Inicializar_bubble_pos(Transform enemigo_)
     {
         if (enemigo_ != null) enemigo = enemigo_;
-        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

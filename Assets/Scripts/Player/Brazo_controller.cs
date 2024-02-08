@@ -42,6 +42,17 @@ public class Brazo_controller : MonoBehaviour
 
     void Update()
     {
+        ApuntadoBrazo();
+        
+        direccion = ObtenerDireccionPrioritaria();
+        RotarBrazo(direccion);
+        
+        SeguirProtagonista();
+        JugadorPulsaDisparo();
+    }
+    
+    void ApuntadoBrazo()
+    {
         if (Input.GetKey(KeyCode.A))
         {
             izquierda = true;
@@ -66,51 +77,41 @@ public class Brazo_controller : MonoBehaviour
             derecha = false;
             arriba = false; abajo = true;
         }
-        
-        direccion = ObtenerDireccionPrioritaria();
-        RotarBrazo(direccion);
-        
-        SeguirProtagonista();
+    }
+
+    void JugadorPulsaDisparo()
+    {
         if (Input.GetKeyDown(KeyCode.J) && can_disparar)
         {
             balas_disparadas++;
-            if(balas_disparadas <= sobrecalentamiento)
+            if (balas_disparadas <= sobrecalentamiento)
             {
-                //anim.SetBool("Sobrecalentamiento", false);
                 Disparar();
-                //print("PUM!");
             }
-            else 
+            else
             {
                 float tiempoActual = Time.time;
                 float tiempoDesdeUltimoDisparo = tiempoActual - tiempoUltimoDisparo;
                 if (tiempoDesdeUltimoDisparo <= intervaloEntreDisparos)
                 {
                     Sobrecalentamiento_arma();
-                    //print("CALOR");
                 }
                 else
                 {
                     Disparar();
-                    
                 }
                 tiempoUltimoDisparo = tiempoActual;
-               
             }
-            
         }
         if (Input.GetKeyDown(KeyCode.L) && derecha && disparo_plataformas || Input.GetKeyDown(KeyCode.Z) && izquierda && disparo_plataformas)
         {
             Disparo_plataformas();
-            
         }
         if (!can_disparar)
         {
             Sobrecalentamiento_arma();
         }
     }
-    
-    
 
     Vector3 ObtenerDireccionPrioritaria()
     {
@@ -161,8 +162,6 @@ public class Brazo_controller : MonoBehaviour
                 angulo = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0f, 0f, angulo);
             }
-            
-            
         }
     }
     float Rotacion_bala(Vector3 direccion)
@@ -171,13 +170,11 @@ public class Brazo_controller : MonoBehaviour
         {
             if (direccion == Vector3.left)
             {
-                
                 angulo = 360f;
                 return angulo;
             }
             else
             {
-                
                 angulo = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
                 return angulo;
             }

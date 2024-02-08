@@ -26,13 +26,12 @@ public class Enemigo_Navmesh : MonoBehaviour
     bool bubble_creada = false;
     public bubble_enem_pulmon bubble_Enem_Pulmon_ = null;
     Transform transform_inicial;
-    // Start is called before the first frame update
+    
     void Start()
     {
         agente = GetComponent<NavMeshAgent>();
         agente.updateRotation = false;
         agente.updateUpAxis = false;
-        //print(puntosRuta[indiceRuta].position.x + "  " + puntosRuta[indiceRuta].position.y);
         sr = this.GetComponent<SpriteRenderer>();
         agente.stoppingDistance = stopping_distance;
         velocidad_inicial = agente.speed;
@@ -40,17 +39,20 @@ public class Enemigo_Navmesh : MonoBehaviour
         animator = this.GetComponent<Animator>();
         transform_inicial = agente.gameObject.transform;
         timer = 2f;
+        
         if (!Wave_spawner.playing_waves)
         {
             personaje = GameObject.FindGameObjectWithTag("Player").transform;
             chasing = false;
         }
+       
         else
         {
             chasing = true;
             personaje = GameObject.FindGameObjectWithTag("Player").transform;
             agente = this.gameObject.GetComponent<NavMeshAgent>();
         }
+        
         tiempo_volver_perseguir = 0.8f;
     }
     
@@ -61,32 +63,7 @@ public class Enemigo_Navmesh : MonoBehaviour
         distancia = Vector3.Distance(personaje.position, this.transform.position);
         if (!chasing)
         {
-            if (this.transform.position == puntosRuta[indiceRuta].position)
-            {
-                if (indiceRuta < puntosRuta.Length - 1)
-                {
-                    indiceRuta++;
-                }
-                else if (indiceRuta == puntosRuta.Length - 1)
-                {
-                    indiceRuta = 0;
-                }
-            }
-        }
-       
-        if (!chasing)
-        {
-            if (distancia < 9)
-            {
-                objetivo_detectado = true;
-                chasing = true;
-            }
-            else
-            {
-                agente.stoppingDistance = stopping_distance;
-                objetivo_detectado = false;
-                
-            }
+            Patrulla();
         }
         else
         {
@@ -95,7 +72,6 @@ public class Enemigo_Navmesh : MonoBehaviour
         
         Movimiento_enemigo(objetivo_detectado);
         Rotar_enemigo();
-        
     }
 
     void Movimiento_enemigo(bool esDetectado)
@@ -110,7 +86,7 @@ public class Enemigo_Navmesh : MonoBehaviour
         }
         else
         {
-            Patrulla();
+            VolverAPatrulla();
         }
     }
 
@@ -128,11 +104,7 @@ public class Enemigo_Navmesh : MonoBehaviour
         {
             if (bubble_enem_pulmon.Get_player_inBubble())
             {
-                agente.SetDestination(this.gameObject.transform.position);
-                agente.speed = velocidad_inicial * 0;
-                agente.acceleration = aceleracion_inicial * 0;
-                agente.angularSpeed = 0f;
-                objetivo = this.gameObject.transform;
+                StopAgent();
             }
             else
             {
@@ -140,21 +112,31 @@ public class Enemigo_Navmesh : MonoBehaviour
                 tiempo_volver_perseguir -= Time.deltaTime;
                 if (tiempo_volver_perseguir <= 0)
                 {
-                    agente.SetDestination(personaje.position);
-                    agente.speed = velocidad_inicial * 1.1f;
-                    agente.acceleration = aceleracion_inicial * 1.1f;
-                    objetivo = personaje;
-                    tiempo_volver_perseguir = 0.8f;
+                    ResumeAgent();
                 }
-
             }
-
         }
 
         Mantener_distancia();
     }
 
-    void Patrulla()
+    void StopAgent()
+    {
+        agente.SetDestination(this.gameObject.transform.position);
+        agente.speed = velocidad_inicial * 0;
+        agente.acceleration = aceleracion_inicial * 0;
+        agente.angularSpeed = 0f;
+        objetivo = this.gameObject.transform;
+    }
+    void ResumeAgent()
+    {
+        agente.SetDestination(personaje.position);
+        agente.speed = velocidad_inicial * 1.1f;
+        agente.acceleration = aceleracion_inicial * 1.1f;
+        objetivo = personaje;
+        tiempo_volver_perseguir = 0.8f;
+    }
+    void VolverAPatrulla()
     {
         agente.gameObject.transform.rotation = transform_inicial.rotation;
         Delete_bubble();
@@ -165,6 +147,30 @@ public class Enemigo_Navmesh : MonoBehaviour
         objetivo = puntosRuta[indiceRuta];
 
         chasing = false;
+    }
+    void Patrulla()
+    {
+        if (this.transform.position == puntosRuta[indiceRuta].position)
+        {
+            if (indiceRuta < puntosRuta.Length - 1)
+            {
+                indiceRuta++;
+            }
+            else if (indiceRuta == puntosRuta.Length - 1)
+            {
+                indiceRuta = 0;
+            }
+        }
+        if (distancia < 9)
+        {
+            objetivo_detectado = true;
+            chasing = true;
+        }
+        else
+        {
+            agente.stoppingDistance = stopping_distance;
+            objetivo_detectado = false;
+        }
     }
     void Rotar_enemigo()
     {
@@ -192,7 +198,6 @@ public class Enemigo_Navmesh : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                //print("Distancia:  " + agente.remainingDistance + "\nObjetivo: " + agente.destination.ToString() + "\nAgente: " + this.gameObject);
                 PlayerController.RestarVidas();
                 timer = 2f;
             }
@@ -205,7 +210,6 @@ public class Enemigo_Navmesh : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                //print("Distancia:  " + agente.remainingDistance + "\nObjetivo: " + agente.destination.ToString() + "\nAgente: " + this.gameObject);
                 PlayerController.RestarVidas();
                 timer = 2f;
             }
@@ -226,15 +230,12 @@ public class Enemigo_Navmesh : MonoBehaviour
         bubble_Enem_Pulmon_ = bubble.GetComponent<bubble_enem_pulmon>();
         bubble_Enem_Pulmon_.Inicializar_bubble_pos(this.transform);
         bubble_creada = true;
-        
-        
     }
     public void Delete_bubble()
     {
         Destroy(bubble);
         bubble_creada = false;
         Atacar(false);
-        
     }
     void Recolocar_enemigo()// MOVE TOWARDS HACE QUE AUNQUE EL DESTINATION SEA ÉL MISMO, SE MUEVA HACIA EL JUGADOR --> ARREGLAR 
     {

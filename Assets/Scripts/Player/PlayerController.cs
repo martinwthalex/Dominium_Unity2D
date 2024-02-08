@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     public GameObject brazo;
     Animator anim;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,14 +25,11 @@ public class PlayerController : MonoBehaviour
         //transform.position = new Vector3(1, 70, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //print(canJump);
         Movement(vel);
         Jump();
         if(Input.GetKey(KeyCode.F2)) Brazo_controller.Set_Can_Disparo_Plataformas(true);
-        //Jugador_cayendo();
     }
 
     void Movement(float vel)
@@ -42,14 +38,11 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(x * vel, rb.velocity.y);
         if (x > 0)
         {
-            //rb.velocity += new Vector2(vel, 0);
             sr.flipX = false;
-            anim.SetBool("Run",true);
+            anim.SetBool("Run", true);
         }
-            
         if (x < 0)
         {
-           // rb.velocity += new Vector2(-vel, 0);
             sr.flipX = true;
             anim.SetBool("Run", true);
         }
@@ -63,13 +56,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I) && canJump)
         {
-            //sr.flipX = false;
-            
             rb.velocity = new Vector2(rb.velocity.x, fuerza_salto);
             canJump = false;
-            
         }
-
     }
     
     public static void RestarVidas(int vidas_restar = 1)
@@ -82,12 +71,8 @@ public class PlayerController : MonoBehaviour
     }
     static void Morir()
     {
-        //Destroy(this);
-        //Destroy(gameObject);
         Scene escenaActual = SceneManager.GetActiveScene();
         SceneManager.LoadScene(escenaActual.name);
-        
-
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -113,7 +98,6 @@ public class PlayerController : MonoBehaviour
     {
         return GetComponent<SpriteRenderer>().flipX;
     }
-
     void SetPlayerCanPlay(bool _can_play)
     {
         this.enabled = _can_play;

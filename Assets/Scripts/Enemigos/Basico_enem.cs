@@ -21,6 +21,7 @@ public class Basico_enem : MonoBehaviour
     public static bool hitmarker_destruido;
     [SerializeField] GameObject hitmarker_prefab;
     float timer;
+
     private void Start()
     {
         limite = false;
@@ -104,7 +105,6 @@ public class Basico_enem : MonoBehaviour
 
     public bool Get_srFlip()
     {
-        
         if (sr.flipX)
         {
             return true;
@@ -137,15 +137,7 @@ public class Basico_enem : MonoBehaviour
             vidas--;
             if (hitmarker_destruido)
             {
-                hitmarker = Instantiate(hitmarker_prefab, transform.position, Quaternion.identity);
-                Hitmarker hitmarker_script = hitmarker.GetComponent<Hitmarker>();
-                hitmarker_script.Inicializar_enemigo_pos(this.gameObject.transform);
-                if (vidas <= 0)
-                {
-                    Destroy(hitmarker_script);
-                    Destroy(gameObject);
-                    
-                }
+                CrearHitmarker();
             }
         }
         if (collision.gameObject.CompareTag("Player"))// si choca con el jugador
@@ -171,5 +163,21 @@ public class Basico_enem : MonoBehaviour
         }
     }
 
+    void CrearHitmarker()
+    {
+        hitmarker = Instantiate(hitmarker_prefab, transform.position, Quaternion.identity);
+        Hitmarker hitmarker_script = hitmarker.GetComponent<Hitmarker>();
+        hitmarker_script.Inicializar_enemigo_pos(this.gameObject.transform);
+        if (vidas <= 0)
+        {
+            DestruirHitmarker(hitmarker_script);
+        }
+    }
+
+    void DestruirHitmarker(Hitmarker hitmarker_script_)
+    {
+        Destroy(hitmarker_script_);
+        Destroy(gameObject);
+    }
    
 }

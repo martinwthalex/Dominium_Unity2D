@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    
     public GameObject brazo;
     private Vector3 direccion;
     private float velocidad;
     
-   
-    // Update is called once per frame
     void Update()
     {
         MoverBala();
@@ -39,9 +36,7 @@ public class BulletMovement : MonoBehaviour
 
     void MoverBala()
     {
-        //transform.Translate(new Vector3(direccion.x,direccion.y,0f) * velocidad * Time.deltaTime);
         transform.position += direccion * velocidad * Time.deltaTime;
-        // Puedes agregar lógica para destruir la bala cuando está fuera de la pantalla u otras condiciones.
     }
     void Flip_bala()
     {
