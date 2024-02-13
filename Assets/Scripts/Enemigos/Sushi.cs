@@ -51,7 +51,7 @@ public class Sushi : MonoBehaviour
     {
         anim.SetFloat("distance", distancia);
         distancia = Vector2.Distance(this.transform.position, personaje.position);
-        if (distancia < 7f)
+        if (distancia < 5f)
         {
             float vertical_offset = 0.5f;
             if (personaje.position.y > this.transform.position.y + vertical_offset)
@@ -59,12 +59,13 @@ public class Sushi : MonoBehaviour
                 patrulla = true;
             }
             else patrulla = false;
-            
         }
         else
         {
             patrulla = true;
+            anim.SetBool("attack", false);
         }
+        if (distancia < 2f) anim.SetBool("attack", true);
     }
     void Patrulla()
     {
@@ -90,10 +91,23 @@ public class Sushi : MonoBehaviour
     }
     void Caza()
     {
-        agente.enabled = true;
-        this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        agente.SetDestination(personaje.position);
-        Rotar();
+        if (!anim.GetBool("attack"))
+        {
+            agente.enabled = true;
+            this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            agente.SetDestination(personaje.position);
+            Rotar();
+        }
+        if (Get_srFlip() && anim.GetBool("attack"))
+        {
+            agente.enabled = false;
+            rb.velocity -= new Vector2(3, 0);
+        }
+        else if(!Get_srFlip() && anim.GetBool("attack"))
+        {
+            agente.enabled = false;
+            rb.velocity += new Vector2(3, 0);
+        }
     }
     public void Set_limite(bool limite_)
     {
