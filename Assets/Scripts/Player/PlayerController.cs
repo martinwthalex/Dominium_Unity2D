@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public static int vidas;
     public GameObject brazo;
     Animator anim;
+    AudioSource src;
+    public AudioClip[] steps;
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
         Set_player_atributes();
         anim = GetComponent<Animator>();
         SetPlayerCanPlay(false);
+        src = GetComponent<AudioSource>();  
         //transform.position = new Vector3(1, 70, 0);
     }
 
@@ -29,9 +32,15 @@ public class PlayerController : MonoBehaviour
     {
         Movement(vel);
         Jump();
-        if(Input.GetKey(KeyCode.F2)) Brazo_controller.Set_Can_Disparo_Plataformas(true);
+        FootSteps();
+        EasterEggs();
     }
 
+    void EasterEggs()
+    {
+        if (Input.GetKey(KeyCode.F2)) Brazo_controller.Set_Can_Disparo_Plataformas(true);
+
+    }
     void Movement(float vel)
     {
         float x = Input.GetAxis("Horizontal");
@@ -51,6 +60,17 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Run", false);
         }
         
+    }
+    void FootSteps()
+    {
+        if(rb.velocity.x != 0)
+        {
+            if(!src.isPlaying)
+            {
+                int n = Random.Range(0, steps.Length);
+                PlayClip(steps[n]);
+            }
+        }
     }
     void Jump()
     {
@@ -101,5 +121,12 @@ public class PlayerController : MonoBehaviour
     void SetPlayerCanPlay(bool _can_play)
     {
         this.enabled = _can_play;
+    }
+
+    
+    void PlayClip(AudioClip clip_)
+    {
+        src.clip = clip_;
+        src.Play();
     }
 }

@@ -103,7 +103,7 @@ public class Brazo_controller : MonoBehaviour
                 tiempoUltimoDisparo = tiempoActual;
             }
         }
-        if (Input.GetKeyDown(KeyCode.L) && derecha && disparo_plataformas || Input.GetKeyDown(KeyCode.Z) && izquierda && disparo_plataformas)
+        if (Input.GetKeyDown(KeyCode.L) && derecha && disparo_plataformas || Input.GetKeyDown(KeyCode.L) && izquierda && disparo_plataformas)
         {
             Disparo_plataformas();
         }
