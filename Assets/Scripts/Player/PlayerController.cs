@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     AudioSource src;
     public AudioClip[] steps;
+    public AudioClip jump, jump_fall;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         FootSteps();
         EasterEggs();
+        //if(!canJump) src.Stop();
     }
 
     void EasterEggs()
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         if(rb.velocity.x != 0)
         {
-            if(!src.isPlaying)
+            if(!src.isPlaying && canJump)
             {
                 int n = Random.Range(0, steps.Length);
                 PlayClip(steps[n]);
@@ -76,6 +78,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I) && canJump)
         {
+            PlayClip(jump);
             rb.velocity = new Vector2(rb.velocity.x, fuerza_salto);
             canJump = false;
         }
@@ -101,6 +104,8 @@ public class PlayerController : MonoBehaviour
             if(collision.GetContact(0).point.y < this.transform.position.y - 0.1f)// si se reduce de tamaño el personaje est evalor debe de cambiar
             {
                 canJump = true;
+                PlayClip(jump_fall);
+
             }
         }
         if (collision.gameObject.CompareTag("pinchos"))
@@ -126,6 +131,7 @@ public class PlayerController : MonoBehaviour
     
     void PlayClip(AudioClip clip_)
     {
+        //src.Stop(); 
         src.clip = clip_;
         src.Play();
     }
