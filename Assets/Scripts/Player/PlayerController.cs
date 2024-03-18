@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
-    static float vel = 10;
-     static float fuerza_salto = 18;
+    public float vel = 10;
+    public float fuerza_salto = 18;
     bool canJump = true;
     SpriteRenderer sr;
     public static int vidas;
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         }
         SetPlayerCanPlay(true);
     }
-    public static void Set_player_atributes(float vel_ = 10, float fuerza_salto_ = 18)
+    public void Set_player_atributes(float vel_ = 10, float fuerza_salto_ = 18)
     {
         vel = vel_;
         fuerza_salto = fuerza_salto_;

@@ -6,10 +6,11 @@ public class bubble_enem_pulmon : MonoBehaviour
 {
     Transform enemigo;
     public static bool player_inBubble = false;
-   
+    PlayerController player;
     private void Start()
     {
         player_inBubble = false;
+        player = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerController>();
     }
     private void Update()
     {
@@ -28,7 +29,7 @@ public class bubble_enem_pulmon : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController.Set_player_atributes(5);
+            player.Set_player_atributes(5);
             player_inBubble = true;
         }
         
@@ -37,7 +38,7 @@ public class bubble_enem_pulmon : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController.Set_player_atributes();
+            player.Set_player_atributes();
             player_inBubble = false;
         }
     }
