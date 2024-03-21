@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Hundimiento_plataforma : MonoBehaviour
 {
@@ -28,13 +29,15 @@ public class Hundimiento_plataforma : MonoBehaviour
     }
     #endregion
 
+    #region Si el personaje salta de la plataforma y cae en seguida
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(rb.gravityScale != 0f)
+        if (rb.gravityScale != 0f)
         {
             rb.gravityScale = 0f;
         }
     }
+    #endregion
 
     #region Plataforma llega de nuevo a la posicion inicial
     private void Update()
