@@ -7,6 +7,32 @@ using Unity.VisualScripting;
 
 public class CM_vcam1 : MonoBehaviour
 {
+    #region Singleton Management
+    //Campo privado que referencia a esta instancia
+    static CM_vcam1 instance;
+
+    /// <summary>
+    /// Propiedad pública que devuelve una referencia a esta instancia
+    /// Pertenece a la clase, no a esta instancia
+    /// Proporciona un punto de acceso global a esta instancia
+    /// </summary>
+    public static CM_vcam1 Instance
+    {
+        get { return instance; }
+    }
+
+    //Constructor
+    void Awake()
+    {
+        //Asigna esta instancia al campo instance
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);  //Garantiza que sólo haya una instancia de esta clase
+    }
+    #endregion
+
+    #region Variables
     static CinemachineVirtualCamera cam;
     [SerializeField] GameObject jugador;
     CinemachineFramingTransposer transposer;
@@ -15,6 +41,9 @@ public class CM_vcam1 : MonoBehaviour
     public static float orthoSize_value;
     float transition_vel_offset;
     public static float transition_vel_ortho;
+    #endregion
+
+    #region Inicializar Variables
     private void Start()
     {
         cam = this.GetComponent<CinemachineVirtualCamera>();
@@ -27,6 +56,9 @@ public class CM_vcam1 : MonoBehaviour
         transition_vel_offset = 4f;
         transition_vel_ortho = 1f;
     }
+    #endregion
+
+    #region Tracked Object Offset Manager
     private void Update()
     {
         if(!CameraChange.GetParkour())SetTrackedObjectOffset_X(expected_tracked_object_offset_X);
@@ -44,14 +76,16 @@ public class CM_vcam1 : MonoBehaviour
             }
             else Debug.LogError("Player not found");
         }
-        
     }
-    
 
     float GetCurrentTrackedObjectOffset_X()
     {
         return transposer.m_TrackedObjectOffset.x;
     }
+
+    #endregion
+
+    #region OrthoSize Manager
     public static IEnumerator SetOrthoSize(float value, float initial_value)
     {
         float time_past = 0.0f;
@@ -91,4 +125,19 @@ public class CM_vcam1 : MonoBehaviour
             CameraChange.SetParkour(true);
         }
     }
+    #endregion
+
+    public void AgitarCamara(bool agitar)
+    {
+        if (agitar)
+        {
+            //transposer.
+        }
+
+        else
+        {
+
+        }
+    }
+
 }
