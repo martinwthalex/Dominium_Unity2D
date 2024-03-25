@@ -5,7 +5,7 @@ using UnityEngine;
 public class Plat_rompe : MonoBehaviour
 {
 	#region Variables
-	const float tiempo_max = 3; // tiempo maximo de vida de la plataforma
+	const float tiempo_max = 2; // tiempo maximo de vida de la plataforma
 	public float timer_stay, timer_exit; // 1er temporizador --> se activa cuando el jugador pisa la plataforma
                                          // 2do temporizador --> se activa cuando el jugador salta de la plataforma
     const float tiempo_antes_de_regenerar = 1.5f;// el tiempo que tiene que pasar el jugador sin pisar la plataforma para
@@ -90,6 +90,7 @@ public class Plat_rompe : MonoBehaviour
     }
     #endregion
 
+    #region Shake Plataforma
     void ShakePlataforma(bool shake)
     {
         if (shake)
@@ -98,4 +99,5 @@ public class Plat_rompe : MonoBehaviour
             pos_inicial.y + (Mathf.Sin(Time.time * vel_agitacion) * cantidad_agitacion), 0);
         }
     }
+    #endregion
 }

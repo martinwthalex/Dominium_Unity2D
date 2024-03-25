@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
+    #region Variables
     Rigidbody2D rb;
     public float vel = 10;
     public float fuerza_salto = 18;
@@ -16,17 +17,45 @@ public class PlayerController : MonoBehaviour
     AudioSource src;
     public AudioClip[] steps;
     public AudioClip jump, jump_fall;
+    #endregion
+
+    #region Singleton Management
+    //Campo privado que referencia a esta instancia
+    static PlayerController instance;
+
+    /// <summary>
+    /// Propiedad pública que devuelve una referencia a esta instancia
+    /// Pertenece a la clase, no a esta instancia
+    /// Proporciona un punto de acceso global a esta instancia
+    /// </summary>
+    public static PlayerController Instance
+    {
+        get { return instance; }
+    }
+
+    //Constructor
+    void Awake()
+    {
+        //Asigna esta instancia al campo instance
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);  //Garantiza que sólo haya una instancia de esta clase
+    }
+    #endregion
 
     void Start()
     {
+        #region Inicializar Variables
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         vidas = 8;
-        Set_player_atributes();
         anim = GetComponent<Animator>();
+        Set_player_atributes();
         SetPlayerCanPlay(false);
-        src = GetComponent<AudioSource>();  
+        src = GetComponent<AudioSource>();
         //transform.position = new Vector3(1, 70, 0);
+        #endregion
     }
 
     void Update()
@@ -38,11 +67,15 @@ public class PlayerController : MonoBehaviour
         //if(!canJump) src.Stop();
     }
 
+    #region Easter Eggs Alex
     void EasterEggs()
     {
         if (Input.GetKey(KeyCode.F2)) Brazo_controller.Set_Can_Disparo_Plataformas(true);
 
     }
+    #endregion
+
+    #region Movimiento personaje
     void Movement(float vel)
     {
         float x = Input.GetAxis("Horizontal");
@@ -63,6 +96,18 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.I) && canJump)
+        {
+            PlayClip(jump);
+            rb.velocity = new Vector2(rb.velocity.x, fuerza_salto);
+            canJump = false;
+        }
+    }
+    #endregion
+
+    #region Sonido Footsteps
     void FootSteps()
     {
         if(rb.velocity.x != 0)
@@ -74,16 +119,9 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    void Jump()
-    {
-        if (Input.GetKeyDown(KeyCode.I) && canJump)
-        {
-            PlayClip(jump);
-            rb.velocity = new Vector2(rb.velocity.x, fuerza_salto);
-            canJump = false;
-        }
-    }
-    
+    #endregion
+
+    #region Morir y Restar vidas
     public static void RestarVidas(int vidas_restar = 1)
     {
         vidas -= vidas_restar; 
@@ -97,6 +135,9 @@ public class PlayerController : MonoBehaviour
         Scene escenaActual = SceneManager.GetActiveScene();
         SceneManager.LoadScene(escenaActual.name);
     }
+    #endregion
+
+    #region Colisiones
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("hielo"))
@@ -114,25 +155,76 @@ public class PlayerController : MonoBehaviour
         }
         SetPlayerCanPlay(true);
     }
+    #endregion
+
+    #region Set Velocidad, fuerza de salto, anim vel, material inicial
+    // Si al llamar a la funcion, no pones parametros estos se reinician por defecto
     public void Set_player_atributes(float vel_ = 10, float fuerza_salto_ = 18)
     {
         vel = vel_;
         fuerza_salto = fuerza_salto_;
+        anim.speed = 1;
     }
+    #endregion
+
+    #region Vel y Salto en Tunel de Viento
+    public void TunelDeViento(bool tunel_de_viento, float divisor = 2)
+    {
+        if (tunel_de_viento)
+        {
+        vel /= divisor;
+        fuerza_salto /= divisor;
+        }
+        else
+        {
+            Set_player_atributes();
+        }
+    }
+    #endregion
+
+    #region Get Flip X
     public bool Get_flipx()
     {
         return GetComponent<SpriteRenderer>().flipX;
     }
+    #endregion
+
+    #region Bloqueo Movimiento
     void SetPlayerCanPlay(bool _can_play)
     {
         this.enabled = _can_play;
     }
+    #endregion
 
-    
+    #region Play Clip
     void PlayClip(AudioClip clip_)
     {
         //src.Stop(); 
         src.clip = clip_;
         src.Play();
     }
+    #endregion
+
+    // CONTINUAR POR AQUI, NO SE ACCEDE A LA VEL DE LOS FRAMES ASI
+    #region Set Velocidad Frames Movimiento
+    // Para adaptar la vel de la animacion en el tunel de viento
+    public void SetVelFramesMov(bool tunel_de_viento, float multiplicador = 1)
+    {
+        if (tunel_de_viento)
+        {
+            anim.speed *= multiplicador;
+        }
+        else
+        {
+            Set_player_atributes();
+        }
+    }
+    #endregion
+
+    #region Baba Deslizante
+    public void BabaDeslizante(float multiplicador_ = 1)
+    {
+        vel *= multiplicador_;
+    }
+    #endregion
 }
