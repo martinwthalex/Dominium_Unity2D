@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     #region Variables
+    float x;
     Rigidbody2D rb;
     public float vel = 10;
     public float fuerza_salto = 18;
@@ -17,6 +19,8 @@ public class PlayerController : MonoBehaviour
     AudioSource src;
     public AudioClip[] steps;
     public AudioClip jump, jump_fall;
+    bool deslizamiento = false;
+    public float cant_deslizamiento = 0.1f;
     #endregion
 
     #region Singleton Management
@@ -49,6 +53,7 @@ public class PlayerController : MonoBehaviour
         #region Inicializar Variables
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        x = Input.GetAxis("Horizontal");
         vidas = 8;
         anim = GetComponent<Animator>();
         Set_player_atributes();
@@ -78,23 +83,26 @@ public class PlayerController : MonoBehaviour
     #region Movimiento personaje
     void Movement(float vel)
     {
-        float x = Input.GetAxis("Horizontal");
+        x = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(x * vel, rb.velocity.y);
         if (x > 0)
         {
             sr.flipX = false;
             anim.SetBool("Run", true);
+            Deslizamiento(deslizamiento);
         }
         if (x < 0)
         {
             sr.flipX = true;
             anim.SetBool("Run", true);
+            Deslizamiento(deslizamiento);
         }
-        if(x == 0)
+        if (x == 0)
         {
             anim.SetBool("Run", false);
+            Deslizamiento(deslizamiento);
         }
-        
+
     }
     void Jump()
     {
@@ -163,7 +171,7 @@ public class PlayerController : MonoBehaviour
     {
         vel = vel_;
         fuerza_salto = fuerza_salto_;
-        anim.speed = 1;
+        anim.SetFloat("Multiplier", 1);
     }
     #endregion
 
@@ -212,7 +220,7 @@ public class PlayerController : MonoBehaviour
     {
         if (tunel_de_viento)
         {
-            anim.speed *= multiplicador;
+            anim.SetFloat("Multiplier", multiplicador);
         }
         else
         {
@@ -224,7 +232,24 @@ public class PlayerController : MonoBehaviour
     #region Baba Deslizante
     public void BabaDeslizante(float multiplicador_ = 1)
     {
+        if (multiplicador_ != 1) deslizamiento = true;
+        else deslizamiento = false;
         vel *= multiplicador_;
+    }
+
+    void Deslizamiento(bool deslizamiento)
+    {
+        if (deslizamiento)
+        {
+            if (Get_flipx())
+            {
+                transform.position -= new Vector3(cant_deslizamiento, 0, 0);
+            }
+            else
+            {
+                transform.position += new Vector3(cant_deslizamiento, 0, 0);
+            }
+        }
     }
     #endregion
 }

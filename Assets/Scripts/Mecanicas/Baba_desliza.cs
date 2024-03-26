@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Baba_desliza : MonoBehaviour
 {
-    float multiplicador = 2;
+    #region Variables
+    float multiplicador = 1.5f;
+    float mult_frames_anim = 2f;
+    #endregion
 
+    #region TriggerEnter y TriggerExit
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController.Instance.BabaDeslizante(multiplicador);
-            PlayerController.Instance.SetVelFramesMov(true, multiplicador);
+            PlayerController.Instance.SetVelFramesMov(true, mult_frames_anim);
         }        
     }
 
@@ -19,8 +23,9 @@ public class Baba_desliza : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Se reinicia el material del player
+            PlayerController.Instance.BabaDeslizante();
             PlayerController.Instance.Set_player_atributes();
         }       
     }
+    #endregion
 }
