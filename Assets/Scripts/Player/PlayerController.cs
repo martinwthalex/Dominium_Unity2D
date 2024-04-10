@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip[] steps;
     public AudioClip jump, jump_fall;
     bool deslizamiento = false;
-    public float cant_deslizamiento = 0.1f;
+    public float cant_deslizamiento = 0.001f;
+    float timer = 1.5f;
     #endregion
 
     #region Singleton Management
@@ -235,6 +236,8 @@ public class PlayerController : MonoBehaviour
         if (multiplicador_ != 1) deslizamiento = true;
         else deslizamiento = false;
         vel *= multiplicador_;
+        rb.mass = 1;
+        timer = 1.5f;
     }
 
     void Deslizamiento(bool deslizamiento)
@@ -248,6 +251,16 @@ public class PlayerController : MonoBehaviour
             else
             {
                 transform.position += new Vector3(cant_deslizamiento, 0, 0);
+            }
+            
+            timer -= Time.deltaTime;
+            if(timer < 0)
+            {
+                rb.mass = 0.05f;
+            }
+            else
+            {
+                rb.mass -= 0.0001f;
             }
         }
     }
