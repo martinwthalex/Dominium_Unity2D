@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip[] steps;
     public AudioClip jump, jump_fall;
     bool deslizamiento = false;
-    public float cant_deslizamiento = 0.001f;
-    float timer = 1.5f;
+    const float initial_fuerza_deslizamiento = 4;
+    float current_fuerza_deslizamiento = initial_fuerza_deslizamiento;
     #endregion
 
     #region Singleton Management
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         if (x == 0)
         {
             anim.SetBool("Run", false);
-            Deslizamiento(deslizamiento);
+            Deslizamiento(deslizamiento, true);
         }
 
     }
@@ -233,34 +233,41 @@ public class PlayerController : MonoBehaviour
     #region Baba Deslizante
     public void BabaDeslizante(float multiplicador_ = 1)
     {
-        if (multiplicador_ != 1) deslizamiento = true;
-        else deslizamiento = false;
+        if (multiplicador_ != 1)
+        {
+            deslizamiento = true;
+        }            
+        else
+        {
+            deslizamiento = false;
+        }
         vel *= multiplicador_;
-        rb.mass = 1;
-        timer = 1.5f;
+        fuerza_salto *= multiplicador_;
     }
 
-    void Deslizamiento(bool deslizamiento)
+    void Deslizamiento(bool deslizamiento, bool parado = false)
     {
         if (deslizamiento)
         {
             if (Get_flipx())
-            {
-                transform.position -= new Vector3(cant_deslizamiento, 0, 0);
+            {                
+                rb.AddForce(new Vector2(-current_fuerza_deslizamiento,0));
             }
             else
             {
-                transform.position += new Vector3(cant_deslizamiento, 0, 0);
+                rb.AddForce(new Vector2(current_fuerza_deslizamiento, 0));
             }
-            
-            timer -= Time.deltaTime;
-            if(timer < 0)
+            if (parado)
             {
-                rb.mass = 0.05f;
+                current_fuerza_deslizamiento -= Time.deltaTime;
+                if(current_fuerza_deslizamiento <= 0)
+                {
+                    current_fuerza_deslizamiento = 0;
+                }
             }
             else
             {
-                rb.mass -= 0.0001f;
+                current_fuerza_deslizamiento = initial_fuerza_deslizamiento;
             }
         }
     }

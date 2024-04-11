@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class Limite_sushi : MonoBehaviour
 {
+    #region Variables
     public Transform sushi;
     float distancia = 1.5f;
+    #endregion
 
-    private void Start()
-    {
-
-    }
+    #region Trigger Enter y Exit
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("pinchos") || collision.gameObject.CompareTag("enemy"))
         {
             sushi.GetComponent<Sushi>().Set_limite(true);
         }
-
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -26,9 +24,11 @@ public class Limite_sushi : MonoBehaviour
             sushi.GetComponent<Sushi>().Set_limite(true);
         }
     }
+    #endregion
 
     private void Update()
     {
+        #region Colocación del límite
         if (sushi != null)
         {
             if (this.sushi.GetComponent<Sushi>().Get_srFlip())
@@ -44,5 +44,6 @@ public class Limite_sushi : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        #endregion
     }
 }

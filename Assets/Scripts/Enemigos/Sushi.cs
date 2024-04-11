@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-
 public class Sushi : MonoBehaviour
 {
+    #region Variables
     bool limite;
     Rigidbody2D rb;
     private Animator anim;
@@ -12,32 +11,45 @@ public class Sushi : MonoBehaviour
     SpriteRenderer sr;
     float distancia;
     public Transform personaje;
-    private NavMeshAgent agente;
-    bool patrulla;
     int vidas;
     GameObject hitmarker;
     public static bool hitmarker_destruido;
     [SerializeField] GameObject hitmarker_prefab;
     float timer;
+    #endregion
     private void Start()
     {
+        #region Inicializacion de Variables
         limite = false;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        agente = GetComponent<NavMeshAgent>();
-        vel = 10;
+        vel = 5;
         vidas = 3;
-        patrulla = true;
-        agente.updateRotation = false;
-        agente.updateUpAxis = false;
-        agente.enabled = false;
         hitmarker_destruido = true;
         timer = 2f;
+        #endregion
     }
     private void Update()
     {
-        if (patrulla)
+        #region Lógica de movimiento del sushi
+        if (personaje.position.y >= this.transform.position.y - (sr.size.y / 2))
+        {
+            Calcular_distancia();
+        }
+        else
+        {
+            Patrulla();
+        }
+        #endregion
+    }
+
+    #region Calcular Distancia
+    void Calcular_distancia()
+    {
+        anim.SetFloat("distance", distancia);
+        distancia = Vector2.Distance(this.transform.position, personaje.position);
+        if(distancia  > 3)
         {
             Patrulla();
         }
@@ -45,31 +57,12 @@ public class Sushi : MonoBehaviour
         {
             Caza();
         }
-        Calcular_distancia();
     }
-    void Calcular_distancia()
-    {
-        anim.SetFloat("distance", distancia);
-        distancia = Vector2.Distance(this.transform.position, personaje.position);
-        if (distancia < 5f)
-        {
-            float vertical_offset = 0.5f;
-            if (personaje.position.y > this.transform.position.y + vertical_offset)
-            {
-                patrulla = true;
-            }
-            else patrulla = false;
-        }
-        else
-        {
-            patrulla = true;
-            anim.SetBool("attack", false);
-        }
-        if (distancia < 2f) anim.SetBool("attack", true);
-    }
+    #endregion
+
+    #region Patrulla
     void Patrulla()
     {
-        agente.enabled = false;
         rb.velocity = new Vector2(0, rb.velocity.y);
         if (!limite)
         {
@@ -89,34 +82,25 @@ public class Sushi : MonoBehaviour
             limite = false;
         }
     }
+    #endregion
+
+    #region Caza
     void Caza()
     {
-        if (!anim.GetBool("attack"))
-        {
-            agente.enabled = true;
-            this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-            agente.SetDestination(personaje.position);
-            Rotar();
-        }
-        if (Get_srFlip() && anim.GetBool("attack"))
-        {
-            agente.enabled = false;
-            rb.velocity -= new Vector2(3, 0);
-        }
-        else if(!Get_srFlip() && anim.GetBool("attack"))
-        {
-            agente.enabled = false;
-            rb.velocity += new Vector2(3, 0);
-        }
+        // DASH
     }
+    #endregion
+
+    #region Set Límite
     public void Set_limite(bool limite_)
     {
         limite = limite_;
     }
+    #endregion
 
+    #region Set y Get FlipX
     public bool Get_srFlip()
     {
-
         if (sr.flipX)
         {
             return true;
@@ -130,17 +114,9 @@ public class Sushi : MonoBehaviour
     {
         sr.flipX = flip;
     }
-    void Rotar()
-    {
-        if (this.transform.position.x > personaje.position.x)
-        {
-            Set_srFlip(false);
-        }
-        else
-        {
-            Set_srFlip(true);
-        }
-    }
+    #endregion
+
+    #region Colisiones del sushi
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("bala"))// si choca con la bala 
@@ -156,7 +132,6 @@ public class Sushi : MonoBehaviour
                 {
                     Destroy(hitmarker_script);
                     Destroy(gameObject);
-
                 }
             }
         }
@@ -165,5 +140,6 @@ public class Sushi : MonoBehaviour
             
         }
     }
+    #endregion
     
 }
