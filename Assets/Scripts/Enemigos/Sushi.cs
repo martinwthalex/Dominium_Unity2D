@@ -15,7 +15,8 @@ public class Sushi : MonoBehaviour
     GameObject hitmarker;
     public static bool hitmarker_destruido;
     [SerializeField] GameObject hitmarker_prefab;
-    float timer;
+    float rango_detect = 6f;
+    float timer = 0.14f;
     #endregion
     private void Start()
     {
@@ -27,7 +28,7 @@ public class Sushi : MonoBehaviour
         vel = 5;
         vidas = 3;
         hitmarker_destruido = true;
-        timer = 2f;
+        anim.SetFloat("distance", rango_detect);
         #endregion
     }
     private void Update()
@@ -49,7 +50,7 @@ public class Sushi : MonoBehaviour
     {
         anim.SetFloat("distance", distancia);
         distancia = Vector2.Distance(this.transform.position, personaje.position);
-        if(distancia  > 3)
+        if(distancia  > rango_detect)
         {
             Patrulla();
         }
@@ -86,8 +87,8 @@ public class Sushi : MonoBehaviour
 
     #region Caza
     void Caza()
-    {
-        // DASH
+    {        
+        Vector3.MoveTowards(this.transform.position, personaje.transform.position, rango_detect);
     }
     #endregion
 
