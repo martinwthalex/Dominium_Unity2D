@@ -70,7 +70,6 @@ public class PlayerController : MonoBehaviour
         Jump();
         FootSteps();
         EasterEggs();
-        //if(!canJump) src.Stop();
     }
 
     #region Easter Eggs Alex
@@ -270,6 +269,17 @@ public class PlayerController : MonoBehaviour
                 current_fuerza_deslizamiento = initial_fuerza_deslizamiento;
             }
         }
+    }
+    #endregion
+
+    #region Golpeo Sushi
+    public void GolpeoSushi(bool flipeado, float fuerza)
+    {
+        Vector2 direccion;
+        Vector2 desplaz_vertical = new Vector2(0,0);
+        if (flipeado) direccion = Vector2.left;
+        else direccion = Vector2.right;
+        rb.AddForce(direccion * fuerza + desplaz_vertical);
     }
     #endregion
 }
