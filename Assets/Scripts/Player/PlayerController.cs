@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     bool deslizamiento = false;
     const float initial_fuerza_deslizamiento = 4;
     float current_fuerza_deslizamiento = initial_fuerza_deslizamiento;
+    public GameObject particulas_pies;
     #endregion
 
     #region Singleton Management
@@ -90,17 +91,20 @@ public class PlayerController : MonoBehaviour
             sr.flipX = false;
             anim.SetBool("Run", true);
             Deslizamiento(deslizamiento);
+            SetPatriculasPies(true);
         }
         if (x < 0)
         {
             sr.flipX = true;
             anim.SetBool("Run", true);
             Deslizamiento(deslizamiento);
+            SetPatriculasPies(true);
         }
         if (x == 0)
         {
             anim.SetBool("Run", false);
             Deslizamiento(deslizamiento, true);
+            SetPatriculasPies(false);
         }
 
     }
@@ -280,6 +284,13 @@ public class PlayerController : MonoBehaviour
         if (flipeado) direccion = Vector2.left;
         else direccion = Vector2.right;
         rb.AddForce(direccion * fuerza + desplaz_vertical);
+    }
+    #endregion
+
+    #region Set Particulas Pies Active/NotActive
+    void SetPatriculasPies(bool activadas)
+    {
+        particulas_pies.SetActive(activadas);
     }
     #endregion
 }
