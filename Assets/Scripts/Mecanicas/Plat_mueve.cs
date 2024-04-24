@@ -35,14 +35,12 @@ public class Plat_mueve : MonoBehaviour
             if (max)
             {
                 agente.SetDestination(MIN_Y.transform.position);
-                max = false;
-                print("A");
+                max = false;                
             }
             else
             {
                 agente.SetDestination(MAX_Y.transform.position);
-                max = true;
-                print("A");
+                max = true;              
             }
         }
     }

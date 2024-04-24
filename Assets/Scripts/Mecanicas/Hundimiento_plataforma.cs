@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,6 +9,7 @@ public class Hundimiento_plataforma : MonoBehaviour
     #region Variables
     Vector3 initial_pos;
     Rigidbody2D rb;
+    public float gravedad_bajada;
     #endregion
 
     #region Guardar posicion inicial de la plataforma y gravedad a 0
@@ -16,6 +18,10 @@ public class Hundimiento_plataforma : MonoBehaviour
         initial_pos = transform.position;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
+
+        #region Hundimiento de la plataforma en el acido
+        Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), GameObject.FindGameObjectWithTag("acido").GetComponent<CompositeCollider2D>(), true);
+        #endregion
     }
     #endregion
 
@@ -24,7 +30,7 @@ public class Hundimiento_plataforma : MonoBehaviour
     {
         if(transform.position != initial_pos)
         {
-            rb.gravityScale = -0.5f;
+            rb.gravityScale = -1.5f;
         }
     }
     #endregion
@@ -47,8 +53,10 @@ public class Hundimiento_plataforma : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Static;
             rb.gravityScale = 0;
             rb.bodyType = RigidbodyType2D.Dynamic;
-
+            transform.position = initial_pos;
         }
     }
     #endregion
+
+    
 }

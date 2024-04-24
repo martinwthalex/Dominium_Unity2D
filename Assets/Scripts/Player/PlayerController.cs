@@ -161,11 +161,19 @@ public class PlayerController : MonoBehaviour
 
             }
         }
-        if (collision.gameObject.CompareTag("pinchos"))
+        if (collision.gameObject.CompareTag("pinchos") || collision.gameObject.CompareTag("acido"))
         {
             Morir();
         }
         SetPlayerCanPlay(true);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("hielo"))
+        {
+            canJump = false;
+        }
     }
     #endregion
 

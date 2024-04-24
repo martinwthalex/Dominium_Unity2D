@@ -14,6 +14,7 @@ TagManager:
   - zonaplataforma
   - bordecamara
   - wave_pulmon
+  - acido
   layers:
   - Default
   - TransparentFX
