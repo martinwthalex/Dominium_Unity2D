@@ -50,7 +50,7 @@ public class CM_vcam1 : MonoBehaviour
         transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
         initial_orthoSize = cam.m_Lens.OrthographicSize;
         orthoSize_value = 10f;
-        cam.m_Lens.OrthographicSize = 3.48f;
+        //cam.m_Lens.OrthographicSize = 3.48f;
         if (jugador == null) jugador = GameObject.FindGameObjectWithTag("Player");
         expected_tracked_object_offset_X = 3;
         transition_vel_offset = 4f;
@@ -127,11 +127,12 @@ public class CM_vcam1 : MonoBehaviour
     }
     #endregion
 
+    #region Agitar camara
     public void AgitarCamara(bool agitar)
     {
         if (agitar)
         {
-            //transposer.
+            
         }
 
         else
@@ -139,5 +140,6 @@ public class CM_vcam1 : MonoBehaviour
 
         }
     }
+    #endregion
 
 }
