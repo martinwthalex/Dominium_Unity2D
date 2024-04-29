@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
             Morir();
         }
     }
-    static void Morir()
+    public static void Morir()
     {
         Scene escenaActual = SceneManager.GetActiveScene();
         SceneManager.LoadScene(escenaActual.name);
@@ -225,7 +225,6 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    // CONTINUAR POR AQUI, NO SE ACCEDE A LA VEL DE LOS FRAMES ASI
     #region Set Velocidad Frames Movimiento
     // Para adaptar la vel de la animacion en el tunel de viento
     public void SetVelFramesMov(bool tunel_de_viento, float multiplicador = 1)
