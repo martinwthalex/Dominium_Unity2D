@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     #region Easter Eggs Alex
     void EasterEggs()
     {
-        if (Input.GetKey(KeyCode.F2)) Brazo_controller.Set_Can_Disparo_Plataformas(true);
+        if (Input.GetKey(KeyCode.K)) Brazo_controller.Set_Can_Disparo_Plataformas(true);
 
     }
     #endregion
