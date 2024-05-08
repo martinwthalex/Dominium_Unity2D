@@ -20,7 +20,7 @@ public class anim_manzana_attack : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         int num = Random.Range(0, 2);
-        if (num == 1) PlayerController.RestarVidas();
+        if (num == 1) PlayerController.Instance.RestarVidas();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -145,7 +145,7 @@ public class Basico_enem : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                PlayerController.RestarVidas();
+                PlayerController.Instance.RestarVidas();
                 timer = 2f;
             }
         }
@@ -157,7 +157,7 @@ public class Basico_enem : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                PlayerController.RestarVidas();
+                PlayerController.Instance.RestarVidas();
                 timer = 2f;
             }
         }

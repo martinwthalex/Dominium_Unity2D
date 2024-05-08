@@ -38,10 +38,19 @@ public class Hundimiento_plataforma : MonoBehaviour
     #region Si el personaje salta de la plataforma y cae en seguida
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (rb.gravityScale != 0f)
+        if (collision.gameObject.CompareTag("wall"))
         {
-            rb.gravityScale = 0f;
+            rb.gravityScale = -1.5f;
+
         }
+        else
+        {
+            if (rb.gravityScale != 0f)
+            {
+                rb.gravityScale = 0f;
+            }
+        }
+
     }
     #endregion
 

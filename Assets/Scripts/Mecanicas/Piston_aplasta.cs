@@ -118,7 +118,7 @@ public class Piston_aplasta : MonoBehaviour
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    PlayerController.Morir();
+                    PlayerController.Instance.Morir();
                 }
             }
         }

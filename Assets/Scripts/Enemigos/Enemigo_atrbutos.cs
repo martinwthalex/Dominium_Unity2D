@@ -29,7 +29,7 @@ public class Enemigo_atrbutos : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Player"))// si choca con el jugador
         {
-            PlayerController.RestarVidas();
+            PlayerController.Instance.RestarVidas();
         }
     }
     void CrearHitmarker()

@@ -170,7 +170,7 @@ public class Sushi : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && !stop_sushi)// si choca con el jugador
         {
             StartCoroutine(StopSushi());
-            PlayerController.RestarVidas();
+            PlayerController.Instance.RestarVidas();
         }
         if (collision.gameObject.CompareTag("Player"))
         {

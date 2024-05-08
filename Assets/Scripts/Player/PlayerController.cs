@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
     const float initial_fuerza_deslizamiento = 4;
     float current_fuerza_deslizamiento = initial_fuerza_deslizamiento;
     public GameObject particulas_pies;
+    Vector3 initial_player_scale;
+    Vector3 initial_brazo_scale;
+    public float tiempo_reaparicion;
+    //Checkpoints
+    Vector2 checkpointPos;
     #endregion
 
     #region Singleton Management
@@ -61,7 +66,9 @@ public class PlayerController : MonoBehaviour
         Set_player_atributes();
         SetPlayerCanPlay(false);
         src = GetComponent<AudioSource>();
-        //transform.position = new Vector3(1, 70, 0);
+        checkpointPos = transform.position;
+        initial_player_scale = transform.localScale;
+        initial_brazo_scale = brazo.transform.localScale;
         #endregion
     }
 
@@ -134,7 +141,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Morir y Restar vidas
-    public static void RestarVidas(int vidas_restar = 1)
+    public void RestarVidas(int vidas_restar = 1)
     {
         vidas -= vidas_restar; 
         if (vidas <= 0)
@@ -142,10 +149,22 @@ public class PlayerController : MonoBehaviour
             Morir();
         }
     }
-    public static void Morir()
+    public void Morir()
     {
-        Scene escenaActual = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(escenaActual.name);
+        StartCoroutine(Respawn(tiempo_reaparicion));
+    }
+
+    IEnumerator Respawn(float duration)
+    {
+        rb.velocity = new Vector2(0, 0);
+        rb.simulated = false;
+        transform.localScale = Vector3.zero;
+        brazo.transform.localScale = Vector3.zero;
+        yield return new WaitForSeconds(duration);
+        transform.position = checkpointPos;
+        transform.localScale = initial_player_scale;
+        brazo.transform.localScale = initial_brazo_scale;
+        rb.simulated = true;
     }
     #endregion
 
@@ -298,6 +317,13 @@ public class PlayerController : MonoBehaviour
     void SetPatriculasPies(bool activadas)
     {
         particulas_pies.SetActive(activadas);
+    }
+    #endregion
+
+    #region UpdateCheckPoint
+    public void UpdateCheckPoint(Vector2 pos)
+    {
+        checkpointPos = pos;
     }
     #endregion
 }
