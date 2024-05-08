@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: AcidoAnimado
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -606786946, guid: 2084c54f2dcc09246bf6860281fdf68d, type: 3}
-  - {fileID: 818259019, guid: 2084c54f2dcc09246bf6860281fdf68d, type: 3}
-  - {fileID: -1132871869, guid: 2084c54f2dcc09246bf6860281fdf68d, type: 3}
-  - {fileID: 1184744707, guid: 2084c54f2dcc09246bf6860281fdf68d, type: 3}
-  - {fileID: 1798159746, guid: 2084c54f2dcc09246bf6860281fdf68d, type: 3}
+  - {fileID: 1029298484, guid: e972188c744bfa6459c8d1ea2e76f7a3, type: 3}
+  - {fileID: -1272655584, guid: e972188c744bfa6459c8d1ea2e76f7a3, type: 3}
+  - {fileID: 725080351, guid: e972188c744bfa6459c8d1ea2e76f7a3, type: 3}
+  - {fileID: -1253550708, guid: e972188c744bfa6459c8d1ea2e76f7a3, type: 3}
+  - {fileID: 607498079, guid: e972188c744bfa6459c8d1ea2e76f7a3, type: 3}
   m_MinSpeed: 5
   m_MaxSpeed: 5
   m_AnimationStartTime: 0
