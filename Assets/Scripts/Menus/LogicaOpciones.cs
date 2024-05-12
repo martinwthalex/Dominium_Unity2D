@@ -6,30 +6,46 @@ using UnityEngine.SceneManagement;
 public class LogicaOpciones : MonoBehaviour
 {
     public GameObject panelOpciones;
-    
+    bool pausa = false;
+
+    private void Start()
+    {
+        panelOpciones.SetActive(false);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            MostrarPausa();
+            Reanudar();
             Datos.escena = 1;
         }
-    }
 
-    public void MostrarPausa()
-    {
-        panelOpciones.SetActive(true);
-        Time.timeScale = 0;
     }
 
     public void Reanudar()
     {
-        Time.timeScale = 1;
+        if (pausa)
+        {
+            Time.timeScale = 1;
+            panelOpciones.SetActive(false);
+            pausa = false;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            panelOpciones.SetActive(true);
+            pausa = true;            
+        }
+    }    
+
+    public void ExitMenu()
+    {        
+        SceneManager.LoadScene("MenuInicial");
     }
 
-    public void ReloadScene()
+    public void RestartScene()
     {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
     }
 }
