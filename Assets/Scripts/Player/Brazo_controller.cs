@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Brazo_controller : MonoBehaviour
 {
+    #region Variables
     public Transform jugador, cañon;
     public float timer_sobrecalentamiento = 2;
     
@@ -26,11 +27,13 @@ public class Brazo_controller : MonoBehaviour
     bool izquierda, derecha, arriba, abajo;
     public static bool disparo_plataformas;
     const int sobrecalentamiento = 30;
-    
     int balas_disparadas = 0;
     bool can_disparar = true;
     Animator anim;
+    #endregion
 
+
+    #region Inicializacion
     void Start()
     {
         hielos_creados = new GameObject[MAX_hielos];
@@ -39,9 +42,11 @@ public class Brazo_controller : MonoBehaviour
         Set_Can_Disparo_Plataformas(false);
         anim = GetComponent<Animator>();
     }
+    #endregion
 
     void Update()
     {
+        #region Logica Brazo
         ApuntadoBrazo();
         
         direccion = ObtenerDireccionPrioritaria();
@@ -49,8 +54,10 @@ public class Brazo_controller : MonoBehaviour
         
         SeguirProtagonista();
         JugadorPulsaDisparo();
+        #endregion
     }
-    
+
+    #region Apuntado Brazo
     void ApuntadoBrazo()
     {
         if (Input.GetKey(KeyCode.A))
@@ -78,7 +85,9 @@ public class Brazo_controller : MonoBehaviour
             arriba = false; abajo = true;
         }
     }
+    #endregion
 
+    #region Jugador Pulsa Disparo
     void JugadorPulsaDisparo()
     {
         if (Input.GetKeyDown(KeyCode.J) && can_disparar)
@@ -112,7 +121,9 @@ public class Brazo_controller : MonoBehaviour
             Sobrecalentamiento_arma();
         }
     }
+    #endregion
 
+    #region Obtener direccion prioritaria
     Vector3 ObtenerDireccionPrioritaria()
     {
         bool izquierda = Input.GetKey(KeyCode.A);
@@ -144,8 +155,9 @@ public class Brazo_controller : MonoBehaviour
 
         return Vector3.zero;
     }
-    
+    #endregion
 
+    #region Rotar Brazo
     void RotarBrazo(Vector3 direccion)
     {
         if (direccion != Vector3.zero)
@@ -198,6 +210,9 @@ public class Brazo_controller : MonoBehaviour
         // Mantener el brazo en el centro del protagonista
         transform.position = jugador.position;
     }
+    #endregion
+
+    #region Logica Disparo
     void Disparar()
     {
         Vector3 direccionDisparo;
@@ -224,6 +239,9 @@ public class Brazo_controller : MonoBehaviour
         BulletMovement scriptBala = bala.GetComponent<BulletMovement>();
         scriptBala.InicializarBala(direccionDisparo, velocidadBala);
     }
+    #endregion
+
+    #region Disparo de Plataformas
     void Disparo_plataformas()
     {
         Vector3 direccionDisparo = Vector3.right;
@@ -271,6 +289,9 @@ public class Brazo_controller : MonoBehaviour
     {
         return disparo_plataformas;
     }
+    #endregion
+
+    #region SobreCalentamiento arma
     void Sobrecalentamiento_arma()
     {
         anim.SetBool("Sobrecalentamiento", true);
@@ -284,4 +305,5 @@ public class Brazo_controller : MonoBehaviour
             anim.SetBool("Sobrecalentamiento", false);
         }
     }
+    #endregion
 }

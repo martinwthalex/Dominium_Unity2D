@@ -11,6 +11,7 @@ public class LogicaOpciones : MonoBehaviour
     private void Start()
     {
         panelOpciones.SetActive(false);
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -46,6 +47,6 @@ public class LogicaOpciones : MonoBehaviour
 
     public void RestartScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+        SceneManager.LoadScene("SampleScene");
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 44258977722433617}
   m_Layer: 0
   m_Name: Punto_patrulla
-  m_TagString: Untagged
+  m_TagString: punto_patrulla
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,4 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 028fcf9f4292e4d41937f546fba9df69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 0}

@@ -15,6 +15,7 @@ TagManager:
   - bordecamara
   - wave_pulmon
   - acido
+  - punto_patrulla
   layers:
   - Default
   - TransparentFX

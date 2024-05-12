@@ -18,7 +18,7 @@ public class HUD : MonoBehaviour
     {
         if (Brazo_controller.Get_Can_Disparo_Plataformas())
         {
-            Set_panel_arma(true, "L to create new platform");
+            Set_panel_arma(true, "L to create platform");
         }
         texto_vidas.text = PlayerController.vidas.ToString();
     }

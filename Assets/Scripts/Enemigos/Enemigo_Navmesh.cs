@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class Enemigo_Navmesh : MonoBehaviour
 {
+    #region Variables
     public Transform personaje;
     private NavMeshAgent agente;
     public Transform[] puntosRuta;
@@ -26,9 +27,11 @@ public class Enemigo_Navmesh : MonoBehaviour
     bool bubble_creada = false;
     public bubble_enem_pulmon bubble_Enem_Pulmon_ = null;
     Transform transform_inicial;
+    #endregion
     
     void Start()
     {
+        #region Inicializacion
         agente = GetComponent<NavMeshAgent>();
         agente.updateRotation = false;
         agente.updateUpAxis = false;
@@ -54,11 +57,13 @@ public class Enemigo_Navmesh : MonoBehaviour
         }
         
         tiempo_volver_perseguir = 0.8f;
+        #endregion
     }
     
     
     void Update()
     {
+        #region Logica del enemigo
         this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         distancia = Vector3.Distance(personaje.position, this.transform.position);
         if (!chasing)
@@ -72,8 +77,10 @@ public class Enemigo_Navmesh : MonoBehaviour
         
         Movimiento_enemigo(objetivo_detectado);
         Rotar_enemigo();
+        #endregion
     }
 
+    #region Movimiento enemigo
     void Movimiento_enemigo(bool esDetectado)
     {
         if (esDetectado && !Wave_spawner.playing_waves)
@@ -89,6 +96,9 @@ public class Enemigo_Navmesh : MonoBehaviour
             VolverAPatrulla();
         }
     }
+    #endregion
+
+    #region Caza del enemigo
 
     void Caza()
     {
@@ -119,7 +129,9 @@ public class Enemigo_Navmesh : MonoBehaviour
 
         Mantener_distancia();
     }
+    #endregion
 
+    #region Stop y Resume Agent
     void StopAgent()
     {
         agente.SetDestination(this.gameObject.transform.position);
@@ -136,6 +148,9 @@ public class Enemigo_Navmesh : MonoBehaviour
         objetivo = personaje;
         tiempo_volver_perseguir = 0.8f;
     }
+    #endregion
+
+    #region Volver a patrulla
     void VolverAPatrulla()
     {
         agente.gameObject.transform.rotation = transform_inicial.rotation;
@@ -148,9 +163,12 @@ public class Enemigo_Navmesh : MonoBehaviour
 
         chasing = false;
     }
-    void Patrulla()
+    #endregion
+
+    #region Deteccion llegada al punto patrulla
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (this.transform.position == puntosRuta[indiceRuta].position)
+        if (collision.gameObject.CompareTag("punto_patrulla"))
         {
             if (indiceRuta < puntosRuta.Length - 1)
             {
@@ -161,6 +179,12 @@ public class Enemigo_Navmesh : MonoBehaviour
                 indiceRuta = 0;
             }
         }
+    }
+    #endregion
+
+    #region Patrulla y rotacion enemigo
+    void Patrulla()
+    {
         if (distancia < 9)
         {
             objetivo_detectado = true;
@@ -183,6 +207,9 @@ public class Enemigo_Navmesh : MonoBehaviour
             sr.flipX = false;   
         }
     }
+    #endregion
+
+    #region Mantener distancia con el jugador
     void Mantener_distancia()
     {
         agente.stoppingDistance = 4;
@@ -220,10 +247,16 @@ public class Enemigo_Navmesh : MonoBehaviour
             Atacar(false);
         }
     }
+    #endregion
+
+    #region Atacar
     void Atacar(bool ataque)
     {
         animator.SetBool("Ataque", ataque);
     }
+    #endregion
+
+    #region Crear y destruir burbuja
     void Crear_bubble()
     {
         bubble = Instantiate(bubble_prefab, this.transform.position, Quaternion.identity);
@@ -237,7 +270,10 @@ public class Enemigo_Navmesh : MonoBehaviour
         bubble_creada = false;
         Atacar(false);
     }
-    void Recolocar_enemigo()// MOVE TOWARDS HACE QUE AUNQUE EL DESTINATION SEA ÉL MISMO, SE MUEVA HACIA EL JUGADOR --> ARREGLAR 
+    #endregion
+
+    #region Recolocar enemigo cuando ataca jugador
+    void Recolocar_enemigo() 
     {
         if (!bubble_creada)
         {
@@ -266,4 +302,5 @@ public class Enemigo_Navmesh : MonoBehaviour
 
         }
     }
+    #endregion
 }

@@ -8,9 +8,10 @@ public class Comic : MonoBehaviour
 {
     public GameObject right_arrow;
     public Image button_right_arrow;
-    float timer;
+    public float timer;
     private void Start()
     {
+        Time.timeScale = 1;
         right_arrow.SetActive(false);
         button_right_arrow.enabled = false;
         timer = 5;
@@ -27,6 +28,7 @@ public class Comic : MonoBehaviour
 
     public void LoadPulmones()
     {
+        timer = 5;
         SceneManager.LoadScene("SampleScene");
     }
 }
