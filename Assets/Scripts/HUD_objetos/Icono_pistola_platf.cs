@@ -9,7 +9,6 @@ public class Icono_pistola_platf : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Brazo_controller.Set_Can_Disparo_Plataformas(true);
-            Checkpoint.ReiniciarCheckpoints();
             this.enabled = false;
             Destroy(this.gameObject);
         }
