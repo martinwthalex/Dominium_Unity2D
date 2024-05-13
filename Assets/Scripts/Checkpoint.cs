@@ -10,7 +10,6 @@ public class Checkpoint : MonoBehaviour
     public Sprite activado = null, desactivado = null;
     BoxCollider2D coll;
 
-    static bool reiniciar_checkpoints = false;
     #endregion
 
     private void Start()
