@@ -20,6 +20,9 @@ public class Sushi : MonoBehaviour
     float timer = 2;
     bool stop_sushi = false;
     bool golpeo_sushi = false;
+
+    bool en_pantalla = false;
+    Vector3 viewportPosition;
     #endregion
     private void Start()
     {
@@ -37,50 +40,55 @@ public class Sushi : MonoBehaviour
     }
     private void Update()
     {
-        #region Lógica de movimiento del sushi
-        if(!stop_sushi)
+        if (en_pantalla)
         {
-            if (personaje.position.y >= this.transform.position.y - (sr.size.y / 2) &&
-                personaje.position.y <= this.transform.position.y + (sr.size.y * 1.5))
+            #region Lógica de movimiento del sushi
+            if(!stop_sushi)
             {
-                Calcular_distancia();
+                if (personaje.position.y >= this.transform.position.y - (sr.size.y / 2) &&
+                    personaje.position.y <= this.transform.position.y + (sr.size.y * 1.5))
+                {
+                    Calcular_distancia();
+                }
+                else
+                {
+                    Patrulla();
+                }
             }
-            else
+            #endregion
+
+            #region Golpeo Sushi
+            if(golpeo_sushi)
             {
-                Patrulla();
+                timer -= Time.deltaTime;
+                if(timer < 1)
+                {
+                    golpeo_sushi = false;
+                    timer = 2;
+                }
+                else
+                {
+                    PlayerController.Instance.GolpeoSushi(Get_srFlip(), fuerza_golpeo);
+                }
             }
+            #endregion
+        }
+
+        #region Occlusion Culling
+        // Obtener la posición del objeto en coordenadas de vista de la pantalla
+        viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+
+        // Verificar si el objeto está dentro de la pantalla
+        if (viewportPosition.x >= 0 && viewportPosition.x <= 1 && viewportPosition.y >= 0 && viewportPosition.y <= 1)
+        {
+            en_pantalla = true;
+        }
+        else
+        {
+            en_pantalla = false;
         }
         #endregion
-
-        #region Golpeo Sushi
-        if(golpeo_sushi)
-        {
-            timer -= Time.deltaTime;
-            if(timer < 1)
-            {
-                golpeo_sushi = false;
-                timer = 2;
-            }
-            else
-            {
-                PlayerController.Instance.GolpeoSushi(Get_srFlip(), fuerza_golpeo);
-            }
-        }
-        #endregion
-
-    }
-
-    #region Oclusion Culling
-    private void OnBecameVisible()
-    {
-        this.enabled = true;
-    }
-
-    private void OnBecameInvisible()
-    {
-        this.enabled = false;
-    }
-    #endregion
+    }    
 
     #region Calcular Distancia
     void Calcular_distancia()

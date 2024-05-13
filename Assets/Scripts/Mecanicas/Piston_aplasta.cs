@@ -18,6 +18,9 @@ public class Piston_aplasta : MonoBehaviour
     public float cantidad_agitacion = 0.02f; //how much it shakes
     bool shaking = true;
 
+    bool en_pantalla = false;
+    Vector3 viewportPosition;
+
     #endregion
 
     #region Inicializacion
@@ -40,30 +43,50 @@ public class Piston_aplasta : MonoBehaviour
 
     #region Logica Piston (Update)
     private void Update()
-    {        
-        if (aplasta)
+    {
+        if (en_pantalla)
         {
-            PistonAplasta(true);
-        }
-        else
-        {
-            if(transform.position != pos_inicial && !shaking)
+            if (aplasta)
             {
-                current_timer -= Time.deltaTime;
-                if(current_timer <= 0)
-                {
-                    stop = false;
-                    PistonAplasta(false);
-                }
-                else stop = true;
+                PistonAplasta(true);
             }
             else
             {
-                ShakePiston(true);
-                current_timer = timer;
-                DetectarPersonaje();
+                if (transform.position != pos_inicial && !shaking)
+                {
+                    current_timer -= Time.deltaTime;
+                    if (current_timer <= 0)
+                    {
+                        stop = false;
+                        PistonAplasta(false);
+                    }
+                    else stop = true;
+                }
+                else
+                {
+                    ShakePiston(true);
+                    current_timer = timer;
+                    DetectarPersonaje();
+                }
             }
         }
+        
+
+        #region Occlusion Culling
+        // Obtener la posición del objeto en coordenadas de vista de la pantalla
+        viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+
+        // Verificar si el objeto está dentro de la pantalla
+        if (viewportPosition.x >= 0 && viewportPosition.x <= 1 && viewportPosition.y >= 0 && viewportPosition.y <= 1)
+        {
+            en_pantalla = true;
+        }
+        else
+        {
+            en_pantalla = false;
+        }
+        #endregion
+
     }
     #endregion
 

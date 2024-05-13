@@ -19,6 +19,9 @@ public class Manzana : MonoBehaviour
     public static bool hitmarker_destruido;
     [SerializeField] GameObject hitmarker_prefab;
     float timer;
+
+    bool en_pantalla = false;
+    Vector3 viewportPosition;
     private void Start()
     {
         limite = false;
@@ -39,15 +42,34 @@ public class Manzana : MonoBehaviour
     }
     private void Update()
     {
-        if (patrulla)
+        if (en_pantalla)
         {
-            Patrulla();
+            if (patrulla)
+            {
+                Patrulla();
+            }
+            else
+            {
+                Caza();
+            }
+            Calcular_distancia();
+        }
+        
+        #region Occlusion Culling
+        // Obtener la posición del objeto en coordenadas de vista de la pantalla
+        viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+
+        // Verificar si el objeto está dentro de la pantalla
+        if (viewportPosition.x >= 0 && viewportPosition.x <= 1 && viewportPosition.y >= 0 && viewportPosition.y <= 1)
+        {
+            en_pantalla = true;
         }
         else
         {
-            Caza();
+            en_pantalla = false;
         }
-        Calcular_distancia();
+        #endregion
+
     }
     void Calcular_distancia()
     {

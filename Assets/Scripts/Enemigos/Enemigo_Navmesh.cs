@@ -27,8 +27,11 @@ public class Enemigo_Navmesh : MonoBehaviour
     bool bubble_creada = false;
     public bubble_enem_pulmon bubble_Enem_Pulmon_ = null;
     Transform transform_inicial;
+
+    bool en_pantalla = false;
+    Vector3 viewportPosition;
     #endregion
-    
+
     void Start()
     {
         #region Inicializacion
@@ -64,20 +67,39 @@ public class Enemigo_Navmesh : MonoBehaviour
     void Update()
     {
         #region Logica del enemigo
-        this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        distancia = Vector3.Distance(personaje.position, this.transform.position);
-        if (!chasing)
+        if (en_pantalla)
         {
-            Patrulla();
+            this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            distancia = Vector3.Distance(personaje.position, this.transform.position);
+            if (!chasing)
+            {
+                Patrulla();
+            }
+            else
+            {
+                objetivo_detectado = true;
+            }
+
+            Movimiento_enemigo(objetivo_detectado);
+            Rotar_enemigo();
+        }
+        #endregion
+
+        #region Occlusion Culling
+        // Obtener la posición del objeto en coordenadas de vista de la pantalla
+        viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+
+        // Verificar si el objeto está dentro de la pantalla
+        if (viewportPosition.x >= 0 && viewportPosition.x <= 1 && viewportPosition.y >= 0 && viewportPosition.y <= 1)
+        {
+            en_pantalla = true;
         }
         else
         {
-            objetivo_detectado = true;
+            en_pantalla = false;
         }
-        
-        Movimiento_enemigo(objetivo_detectado);
-        Rotar_enemigo();
         #endregion
+
     }
 
     #region Movimiento enemigo
