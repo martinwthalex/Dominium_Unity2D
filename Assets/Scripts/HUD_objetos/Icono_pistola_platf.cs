@@ -6,7 +6,7 @@ public class Icono_pistola_platf : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("bordecamara"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             Brazo_controller.Set_Can_Disparo_Plataformas(true);
             this.enabled = false;

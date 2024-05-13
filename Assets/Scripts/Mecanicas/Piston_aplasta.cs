@@ -112,6 +112,8 @@ public class Piston_aplasta : MonoBehaviour
             #region Sonido piston toca suelo
             GetComponent<AudioSource>().Play();
             #endregion
+
+            CM_vcam1.Instance.AgitarCamara(true);
         }
 
         #region Comprobar si el jugador está debajo y no en el lado

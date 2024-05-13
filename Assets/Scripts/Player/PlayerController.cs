@@ -165,6 +165,8 @@ public class PlayerController : MonoBehaviour
         transform.localScale = initial_player_scale;
         brazo.transform.localScale = initial_brazo_scale;
         rb.simulated = true;
+
+        vidas = 8;
     }
     #endregion
 

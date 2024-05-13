@@ -67,7 +67,20 @@ public class Sushi : MonoBehaviour
             }
         }
         #endregion
+
     }
+
+    #region Oclusion Culling
+    private void OnBecameVisible()
+    {
+        this.enabled = true;
+    }
+
+    private void OnBecameInvisible()
+    {
+        this.enabled = false;
+    }
+    #endregion
 
     #region Calcular Distancia
     void Calcular_distancia()
@@ -172,6 +185,7 @@ public class Sushi : MonoBehaviour
         {
             StartCoroutine(StopSushi());
             PlayerController.Instance.RestarVidas();
+            CM_vcam1.Instance.AgitarCamara(true);
         }
         if (collision.gameObject.CompareTag("Player"))
         {
