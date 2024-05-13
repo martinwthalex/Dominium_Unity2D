@@ -34,6 +34,8 @@ public class Manzana : MonoBehaviour
         agente.enabled = false;
         hitmarker_destruido = true;
         timer = 3f;
+
+        personaje = GameObject.FindGameObjectWithTag("Player").transform;
     }
     private void Update()
     {
@@ -151,7 +153,11 @@ public class Manzana : MonoBehaviour
                 }
             }
         }
-        
+
+        if (collision.gameObject.CompareTag("acido"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 }

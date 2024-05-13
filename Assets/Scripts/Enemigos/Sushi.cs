@@ -31,7 +31,8 @@ public class Sushi : MonoBehaviour
         vel = 5;
         vidas = 3;
         hitmarker_destruido = true;
-        anim.SetFloat("distance", rango_detect);
+        //anim.SetFloat("distance", rango_detect);
+        personaje = GameObject.FindGameObjectWithTag("Player").transform;
         #endregion
     }
     private void Update()
@@ -175,6 +176,11 @@ public class Sushi : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             golpeo_sushi = true;
+        }
+
+        if (collision.gameObject.CompareTag("acido"))
+        {
+            Destroy(this.gameObject);
         }
     }
     #endregion

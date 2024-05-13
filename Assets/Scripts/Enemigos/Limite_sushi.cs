@@ -9,13 +9,26 @@ public class Limite_sushi : MonoBehaviour
     float distancia = 1.5f;
     #endregion
 
+    private void Start()
+    {
+        Physics2D.IgnoreCollision(GameObject.FindGameObjectWithTag("baba").gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+    }
+
     #region Trigger Enter y Exit
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("pinchos") || collision.gameObject.CompareTag("enemy"))
+        if (collision.gameObject.CompareTag("wall") 
+            || collision.gameObject.CompareTag("pinchos") 
+            || collision.gameObject.CompareTag("enemy") 
+            || collision.gameObject.CompareTag("acido"))
         {
             sushi.GetComponent<Sushi>().Set_limite(true);
         }
+
+        //if (collision.gameObject.CompareTag("baba"))
+        //{
+        //    sushi.GetComponent<Sushi>().Set_limite(false);
+        //}
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

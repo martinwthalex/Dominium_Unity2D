@@ -105,10 +105,14 @@ public class Piston_aplasta : MonoBehaviour
         if (collision.gameObject.CompareTag("Floor") || collision.gameObject.CompareTag("Player"))
         {
             aplasta = false;
+        }
+
+        if (collision.gameObject.CompareTag("Floor"))
+        {
             #region Sonido piston toca suelo
             GetComponent<AudioSource>().Play();
             #endregion
-        }        
+        }
 
         #region Comprobar si el jugador está debajo y no en el lado
         if (collision.contacts.Length > 0)
@@ -118,6 +122,9 @@ public class Piston_aplasta : MonoBehaviour
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
+                    #region Sonido piston toca suelo
+                    GetComponent<AudioSource>().Play();
+                    #endregion
                     PlayerController.Instance.Morir();
                 }
             }

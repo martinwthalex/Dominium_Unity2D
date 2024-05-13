@@ -13,7 +13,10 @@ public class Limite_basicoEnem : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("pinchos") || collision.gameObject.CompareTag("enemy"))
+        if (collision.gameObject.CompareTag("wall") || 
+            collision.gameObject.CompareTag("pinchos") || 
+            collision.gameObject.CompareTag("enemy") || 
+            collision.gameObject.CompareTag("acido"))
         { 
             basico_enem.GetComponent<Basico_enem>().Set_limite(true);
         }

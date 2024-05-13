@@ -16,6 +16,7 @@ TagManager:
   - wave_pulmon
   - acido
   - punto_patrulla
+  - baba
   layers:
   - Default
   - TransparentFX

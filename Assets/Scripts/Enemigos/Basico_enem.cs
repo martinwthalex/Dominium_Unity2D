@@ -149,6 +149,10 @@ public class Basico_enem : MonoBehaviour
                 timer = 2f;
             }
         }
+        if (collision.gameObject.CompareTag("acido"))
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
