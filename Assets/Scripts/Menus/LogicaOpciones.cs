@@ -48,5 +48,6 @@ public class LogicaOpciones : MonoBehaviour
     public void RestartScene()
     {
         PlayerController.Instance.Morir();
+        Reanudar();
     }
 }
